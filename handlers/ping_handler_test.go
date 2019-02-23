@@ -5,6 +5,7 @@ import (
 	"github.com/ElPicador/form3-exercise/handlers"
 	"github.com/stretchr/testify/require"
 	"net/http"
+	"net/http/httptest"
 	"testing"
 )
 
@@ -14,7 +15,8 @@ func TestPingHandler(t *testing.T) {
 	req, err := http.NewRequest("GET", "/", nil)
 	require.NoError(t, err)
 
-	rr := handlers.ServeAndRecord(handler, req)
+	rr := httptest.NewRecorder()
+	handler.ServeHTTP(rr, req)
 
 	require.Equal(t, http.StatusOK, rr.Code)
 	result := map[string]string{}

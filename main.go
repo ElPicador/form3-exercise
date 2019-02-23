@@ -20,6 +20,10 @@ func main() {
 		Path("/1/payments").
 		Methods(http.MethodPost).
 		Handler(handlers.NewCreatePaymentHandler(repository, generator))
+	r.
+		Path("/1/payments/{uuid}").
+		Methods(http.MethodGet).
+		Handler(handlers.NewGetPaymentHandler(repository))
 
 	srv := &http.Server{
 		Handler: r,

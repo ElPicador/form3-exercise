@@ -23,3 +23,21 @@ func TestExists(t *testing.T) {
 	require.NoError(t, err)
 	require.True(t, exists)
 }
+
+func TestGet(t *testing.T) {
+	repo, after := payments.RepositoryForTests(t)
+	defer after()
+
+	id := "my-id"
+
+	_, err := repo.Get(id)
+	require.Error(t, err)
+
+	payment := payments.Payment{ID: id}
+	err = repo.Save(id, &payment)
+	require.NoError(t, err)
+
+	actual, err := repo.Get(id)
+	require.NoError(t, err)
+	require.EqualValues(t, payment, *actual)
+}

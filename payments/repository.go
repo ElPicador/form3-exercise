@@ -3,6 +3,7 @@ package payments
 import (
 	"encoding/json"
 	"github.com/pkg/errors"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -57,6 +58,36 @@ func (r *Repository) Save(id string, payment *Payment) error {
 	}
 
 	return nil
+}
+
+func (r *Repository) Get(id string) (*Payment, error) {
+	exist, err := r.Exists(id)
+	if err != nil {
+		return nil, errors.Wrapf(err, "cannot get payment id %q", id)
+	}
+	if !exist {
+		return nil, errors.Errorf("cannot get payment id %q", id)
+	}
+
+	path := r.filePath(id)
+	f, err := os.OpenFile(path, os.O_RDONLY, 0600)
+	defer f.Close()
+	if err != nil {
+		return nil, errors.Wrap(err, "cannot open file")
+	}
+
+	bytes, err := ioutil.ReadAll(f)
+	if err != nil {
+		return nil, errors.Wrap(err, "cannot read file")
+	}
+
+	var payment Payment
+	err = json.Unmarshal(bytes, &payment)
+	if err != nil {
+		return nil, errors.Wrap(err, "cannot unmarshal payment")
+	}
+
+	return &payment, nil
 }
 
 func (r *Repository) filePath(id string) string {

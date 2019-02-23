@@ -5,6 +5,7 @@ import (
 	"github.com/ElPicador/form3-exercise/payments"
 	"github.com/stretchr/testify/require"
 	"net/http"
+	"net/http/httptest"
 	"strings"
 	"testing"
 )
@@ -23,7 +24,8 @@ func TestCreatePaymentHandler_EmptyBody(t *testing.T) {
 	req, err := http.NewRequest("POST", "/", nil)
 	require.NoError(t, err)
 
-	rr := handlers.ServeAndRecord(handler, req)
+	rr := httptest.NewRecorder()
+	handler.ServeHTTP(rr, req)
 
 	require.Equal(t, http.StatusBadRequest, rr.Code)
 	require.Equal(t, `{"code":400,"message":"body of request must be a json object"}`, rr.Body.String())
@@ -36,7 +38,8 @@ func TestCreatePaymentHandler_NotJSONBody(t *testing.T) {
 	req, err := http.NewRequest("POST", "/", strings.NewReader("not a json"))
 	require.NoError(t, err)
 
-	rr := handlers.ServeAndRecord(handler, req)
+	rr := httptest.NewRecorder()
+	handler.ServeHTTP(rr, req)
 
 	require.Equal(t, http.StatusBadRequest, rr.Code)
 	require.Equal(t, `{"code":400,"message":"invalid json"}`, rr.Body.String())
@@ -49,7 +52,8 @@ func TestCreatePaymentHandler_ValidJSONBody(t *testing.T) {
 	req, err := http.NewRequest("POST", "/", strings.NewReader("{}"))
 	require.NoError(t, err)
 
-	rr := handlers.ServeAndRecord(handler, req)
+	rr := httptest.NewRecorder()
+	handler.ServeHTTP(rr, req)
 
 	require.Equal(t, http.StatusCreated, rr.Code)
 
