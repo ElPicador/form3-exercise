@@ -9,3 +9,7 @@ doc:
 .PHONY: dep
 dep:
 	dep ensure
+
+.PHONY: dep
+test:
+	go test ./...
