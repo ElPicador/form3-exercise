@@ -2,12 +2,15 @@ package main
 
 import (
 	"github.com/ElPicador/form3-exercise/handlers"
+	"github.com/ElPicador/form3-exercise/payments"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 )
 
 func main() {
+	repository := payments.NewRepository(".")
+
 	r := mux.NewRouter()
 	r.
 		Path("/isalive").
@@ -15,7 +18,7 @@ func main() {
 	r.
 		Path("/1/payments").
 		Methods(http.MethodPost).
-		HandlerFunc(handlers.CreatePaymentHandler)
+		Handler(handlers.NewCreatePaymentHandler(repository))
 
 	srv := &http.Server{
 		Handler: r,

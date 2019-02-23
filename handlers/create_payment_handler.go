@@ -10,7 +10,17 @@ type createPaymentRequest struct {
 	Payment payments.Payment `json:"payment"`
 }
 
-func CreatePaymentHandler(w http.ResponseWriter, r *http.Request) {
+type CreatePaymentHandler struct {
+	repository *payments.Repository
+}
+
+func NewCreatePaymentHandler(repository *payments.Repository) *CreatePaymentHandler {
+	return &CreatePaymentHandler{
+		repository: repository,
+	}
+}
+
+func (h *CreatePaymentHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Body == nil {
 		WriteJSONMessage(w, http.StatusBadRequest, "body of request must be a json object")
 		return

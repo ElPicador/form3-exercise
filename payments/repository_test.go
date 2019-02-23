@@ -3,18 +3,12 @@ package payments_test
 import (
 	"github.com/ElPicador/form3-exercise/payments"
 	"github.com/stretchr/testify/require"
-	"io/ioutil"
-	"os"
 	"testing"
 )
 
 func TestExists(t *testing.T) {
-	dir, err := ioutil.TempDir("", "repository")
-	require.NoError(t, err)
-
-	defer os.RemoveAll(dir) // clean up
-
-	repo := payments.NewRepository(dir)
+	repo, after := payments.RepositoryForTests(t)
+	defer after()
 
 	id := "my-id"
 

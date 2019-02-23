@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 )
 
-func ServeAndRecord(handler http.HandlerFunc, req *http.Request) *httptest.ResponseRecorder {
+func ServeAndRecord(handler http.Handler, req *http.Request) *httptest.ResponseRecorder {
 	rr := httptest.NewRecorder()
 	handler.ServeHTTP(rr, req)
 
