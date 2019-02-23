@@ -9,7 +9,13 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-	r.Path("/isalive").HandlerFunc(handlers.PingHandler)
+	r.
+		Path("/isalive").
+		HandlerFunc(handlers.PingHandler)
+	r.
+		Path("/1/payments").
+		Methods(http.MethodPost).
+		HandlerFunc(handlers.CreatePaymentHandler)
 
 	srv := &http.Server{
 		Handler: r,
