@@ -1,21 +1,20 @@
-package handlers
+package handlers_test
 
 import (
 	"encoding/json"
+	"github.com/ElPicador/form3-exercise/handlers"
 	"github.com/stretchr/testify/require"
 	"net/http"
-	"net/http/httptest"
 	"testing"
 )
 
 func TestPingHandler(t *testing.T) {
-	handler := http.HandlerFunc(PingHandler)
+	handler := http.HandlerFunc(handlers.PingHandler)
 
 	req, err := http.NewRequest("GET", "/", nil)
 	require.NoError(t, err)
 
-	rr := httptest.NewRecorder()
-	handler.ServeHTTP(rr, req)
+	rr := handlers.ServeAndRecord(handler, req)
 
 	require.Equal(t, http.StatusOK, rr.Code)
 	result := map[string]string{}

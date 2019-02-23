@@ -1,41 +1,50 @@
 package handlers
 
 import (
-	"encoding/json"
-	"log"
+	"github.com/stretchr/testify/require"
 	"net/http"
+	"testing"
 )
 
-func WriteJSON(w http.ResponseWriter, statusCode int, body []byte) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(statusCode)
-	if body != nil {
-		_, _ = w.Write(body)
-	}
-}
-
-type statusMessage struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
-}
-
-func WriteJSONMessage(w http.ResponseWriter, statusCode int, message string) {
-	body, err := json.Marshal(statusMessage{
-		Code:    statusCode,
-		Message: message,
+func TestWrite500(t *testing.T) {
+	handler := http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		Write500(w)
 	})
 
-	if err != nil {
-		log.Printf("[ERROR] cannot marshal json response: %s\n", err)
-		Write500(w)
-		return
-	}
-	WriteJSON(w, statusCode, body)
+	req, err := http.NewRequest("GET", "/", nil)
+	require.NoError(t, err)
+
+	rr := ServeAndRecord(handler, req)
+
+	require.Equal(t, http.StatusInternalServerError, rr.Code)
+	require.Equal(t, string(jsonBody500), rr.Body.String())
 }
 
-var jsonBody500 = []byte(`{"status":500, "message": "Internal Server Error"}`)
+func TestWriteJSONMessage(t *testing.T) {
+	handler := http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		WriteJSONMessage(w, http.StatusNotFound, "not found")
+	})
 
-// Write500 sends a generic 500 error.
-func Write500(w http.ResponseWriter) {
-	WriteJSON(w, http.StatusInternalServerError, jsonBody500)
+	req, err := http.NewRequest("GET", "/", nil)
+	require.NoError(t, err)
+
+	rr := ServeAndRecord(handler, req)
+
+	require.Equal(t, http.StatusNotFound, rr.Code)
+	require.Equal(t, `{"code":404,"message":"not found"}`, rr.Body.String())
+}
+
+func TestWriteJSON(t *testing.T) {
+	handler := http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		WriteJSON(w, http.StatusBadGateway, []byte(`{"hello":"world""}`))
+	})
+
+	req, err := http.NewRequest("GET", "/", nil)
+	require.NoError(t, err)
+
+	rr := ServeAndRecord(handler, req)
+
+	require.Equal(t, http.StatusBadGateway, rr.Code)
+	require.Equal(t, "application/json", rr.Header().Get("Content-Type"))
+	require.Equal(t, `{"hello":"world""}`, rr.Body.String())
 }
