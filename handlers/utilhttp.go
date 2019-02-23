@@ -6,8 +6,18 @@ import (
 	"net/http"
 )
 
-// WriteJSON sends a http response with content type json
-func WriteJSON(w http.ResponseWriter, statusCode int, body []byte) {
+// WriteJSON marshal & sends `i` as JSON
+func WriteJSON(w http.ResponseWriter, statusCode int, i interface{}) {
+	bytes, err := json.Marshal(i)
+	if err != nil {
+		Write500(w)
+		return
+	}
+	WriteContentTypeJSON(w, statusCode, bytes)
+}
+
+// WriteContentTypeJSON sends a http response with content type json
+func WriteContentTypeJSON(w http.ResponseWriter, statusCode int, body []byte) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
 	if body != nil {
@@ -32,12 +42,12 @@ func WriteJSONMessage(w http.ResponseWriter, statusCode int, message string) {
 		Write500(w)
 		return
 	}
-	WriteJSON(w, statusCode, body)
+	WriteContentTypeJSON(w, statusCode, body)
 }
 
 var jsonBody500 = []byte(`{"status":500, "message": "Internal Server Error"}`)
 
 // Write500 sends a generic 500 error
 func Write500(w http.ResponseWriter) {
-	WriteJSON(w, http.StatusInternalServerError, jsonBody500)
+	WriteContentTypeJSON(w, http.StatusInternalServerError, jsonBody500)
 }

@@ -10,6 +10,7 @@ import (
 
 func main() {
 	repository := payments.NewRepository(".")
+	generator := payments.NewPaymentIDGenerator()
 
 	r := mux.NewRouter()
 	r.
@@ -18,7 +19,7 @@ func main() {
 	r.
 		Path("/1/payments").
 		Methods(http.MethodPost).
-		Handler(handlers.NewCreatePaymentHandler(repository))
+		Handler(handlers.NewCreatePaymentHandler(repository, generator))
 
 	srv := &http.Server{
 		Handler: r,

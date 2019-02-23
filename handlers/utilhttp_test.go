@@ -34,9 +34,9 @@ func TestWriteJSONMessage(t *testing.T) {
 	require.Equal(t, `{"code":404,"message":"not found"}`, rr.Body.String())
 }
 
-func TestWriteJSON(t *testing.T) {
+func TestWriteContentTypeJSON(t *testing.T) {
 	handler := http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
-		WriteJSON(w, http.StatusBadGateway, []byte(`{"hello":"world""}`))
+		WriteContentTypeJSON(w, http.StatusBadGateway, []byte(`{"hello":"world"}`))
 	})
 
 	req, err := http.NewRequest("GET", "/", nil)
@@ -46,5 +46,25 @@ func TestWriteJSON(t *testing.T) {
 
 	require.Equal(t, http.StatusBadGateway, rr.Code)
 	require.Equal(t, "application/json", rr.Header().Get("Content-Type"))
-	require.Equal(t, `{"hello":"world""}`, rr.Body.String())
+	require.Equal(t, `{"hello":"world"}`, rr.Body.String())
+}
+
+type testingJSON struct {
+	Message string `json:"message"`
+	Value   int    `json:"value"`
+}
+
+func TestWriteJSON(t *testing.T) {
+	handler := http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		WriteJSON(w, http.StatusOK, &testingJSON{Message: "hello", Value: 0})
+	})
+
+	req, err := http.NewRequest("GET", "/", nil)
+	require.NoError(t, err)
+
+	rr := ServeAndRecord(handler, req)
+
+	require.Equal(t, http.StatusOK, rr.Code)
+	require.Equal(t, "application/json", rr.Header().Get("Content-Type"))
+	require.Equal(t, `{"message":"hello","value":0}`, rr.Body.String())
 }

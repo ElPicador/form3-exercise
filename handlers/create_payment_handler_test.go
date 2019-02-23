@@ -11,7 +11,7 @@ import (
 
 func createHandler(t *testing.T) (http.Handler, func()) {
 	repo, after := payments.RepositoryForTests(t)
-	handler := http.Handler(handlers.NewCreatePaymentHandler(repo))
+	handler := http.Handler(handlers.NewCreatePaymentHandler(repo, &payments.FixedPaymentIDGenerator{}))
 
 	return handler, after
 }
@@ -52,5 +52,6 @@ func TestCreatePaymentHandler_ValidJSONBody(t *testing.T) {
 	rr := handlers.ServeAndRecord(handler, req)
 
 	require.Equal(t, http.StatusCreated, rr.Code)
-	require.Equal(t, `{"payment_id":"uuidv4"}`, rr.Body.String())
+
+	require.Equal(t, `{"payment_id":"6a7d6b21-5cb7-4240-af3e-8dda39e65ff7"}`, rr.Body.String())
 }
