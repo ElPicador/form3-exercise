@@ -164,9 +164,9 @@ Based on the provided examples of payments, I inferred the schema of a payment t
 #### Payment
 
 * type: `string`
-* id: `UUIDv4`
+* id: `string`, representing a UUIDv4
 * version: `unsigned integer`
-* organisation_id: `UUIDv4`
+* organisation_id: `string`, representing a UUIDv4
 * attributes: `object`, [see](#payment-attributes)
 
 #### Payment attributes
@@ -189,14 +189,14 @@ Based on the provided examples of payments, I inferred the schema of a payment t
 * sponsor_party: `object`, [see](#payment-party)
 
 #### Payment party
-* account_name: "W Owens"
-* account_number: "31926819"
-* account_number_code: "BBAN"
-* account_type: 0
-* address: "1 The Beneficiary Localtown SE2"
-* bank_id: "403000"
-* bank_id_code: "GBDSC"
-* name: "Wilfred Jeremiah Owens
+* account_name: `string`
+* account_number: `string`
+* account_number_code: `string`
+* account_type: `integer`
+* address: `string`
+* bank_id: `string`
+* bank_id_code: `string`
+* name: `string`
 
 #### Charges information
 * bearer_code: `string`
