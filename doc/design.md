@@ -115,6 +115,15 @@ To be able to change the API, it will be versioned, each HTTP path will be prece
         ```
         * `500` for a server error, [see](#common-http-answers)
             
+* Check if the server is alive: `GET /isalive`
+    * Responses:
+        * `200`: the response body will be formatted as JSON. The `payments` attribute will be an array of payment, as one from the examples:
+        ```json
+        {
+          "yes": "i_am"
+        }
+        ```
+        * `500` for a server error, [see](#common-http-answers)
 
 #### Common HTTP answers
 All `4XX` and `5XX` errors will have the same JSON response body
