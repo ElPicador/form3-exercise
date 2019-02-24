@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	repository := payments.NewRepository(".")
+	repository := payments.NewRepository("./data")
 	generator := payments.NewPaymentIDGenerator()
 	a := api.New(repository, generator)
 
@@ -16,6 +16,7 @@ func main() {
 		Handler: a.Handler(),
 		Addr:    "127.0.0.1:3000",
 	}
+	log.Println("using ./data as the directory for the storage")
 	log.Println("starting server on http://localhost:3000")
 
 	log.Fatal(srv.ListenAndServe())

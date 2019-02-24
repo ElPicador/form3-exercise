@@ -155,6 +155,7 @@ For the storage, I think the filesystem is a good trade off, it provides atomici
 For the API to be production ready, I would at least add:
 * better logging
 * metrics reporting (latency to storage, latency of the full API, number of requests, etc.)
+* linting, like [golangci-lint](https://github.com/golangci/golangci-lint)
 
 ## Annexe
 

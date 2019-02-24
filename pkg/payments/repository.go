@@ -2,6 +2,7 @@ package payments
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/pkg/errors"
 	"io/ioutil"
 	"os"
@@ -69,25 +70,7 @@ func (r *Repository) Get(id string) (*Payment, error) {
 		return nil, errors.Errorf("cannot get payment id %q", id)
 	}
 
-	path := r.filePath(id)
-	f, err := os.OpenFile(path, os.O_RDONLY, 0600)
-	defer f.Close()
-	if err != nil {
-		return nil, errors.Wrap(err, "cannot open file")
-	}
-
-	bytes, err := ioutil.ReadAll(f)
-	if err != nil {
-		return nil, errors.Wrap(err, "cannot read file")
-	}
-
-	var payment Payment
-	err = json.Unmarshal(bytes, &payment)
-	if err != nil {
-		return nil, errors.Wrap(err, "cannot unmarshal payment")
-	}
-
-	return &payment, nil
+	return read(r.filePath(id))
 }
 
 func (r *Repository) Delete(id string) error {
@@ -116,16 +99,40 @@ func (r *Repository) GetAll() ([]*Payment, error) {
 
 	result := []*Payment{}
 	for _, file := range files {
-		payment, err := r.Get(file.Name())
-		if err != nil {
-			return nil, errors.Wrap(err, "cannot get one payment")
+		if filepath.Ext(file.Name()) == ".json" {
+			payment, err := read(filepath.Join(r.rootPath, file.Name()))
+			if err != nil {
+				return nil, errors.Wrap(err, "cannot get one payment")
+			}
+			result = append(result, payment)
 		}
-		result = append(result, payment)
 	}
 
 	return result, nil
 }
 
+
+func read(path string) (*Payment, error){
+	f, err := os.OpenFile(path, os.O_RDONLY, 0600)
+	defer f.Close()
+	if err != nil {
+		return nil, errors.Wrap(err, "cannot open file")
+	}
+
+	bytes, err := ioutil.ReadAll(f)
+	if err != nil {
+		return nil, errors.Wrap(err, "cannot read file")
+	}
+
+	var payment Payment
+	err = json.Unmarshal(bytes, &payment)
+	if err != nil {
+		return nil, errors.Wrap(err, "cannot unmarshal payment")
+	}
+
+	return &payment, nil
+}
+
 func (r *Repository) filePath(id string) string {
-	return filepath.Join(r.rootPath, id)
+	return fmt.Sprintf("%s.json", filepath.Join(r.rootPath, id))
 }
