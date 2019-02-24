@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"github.com/ElPicador/form3-exercise/pkg/api"
