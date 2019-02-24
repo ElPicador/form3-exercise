@@ -5,11 +5,6 @@
 * [dep](https://github.com/golang/dep)
 * make
 
-### Optional
-* [pandoc](https://pandoc.org/), for macOS: `brew install pandoc`
-* mactex for macOS: `brew cask install mactex`
-     
-
 ## Run the API
 
     $ make run
@@ -17,7 +12,13 @@
 ## Run the tests
 
     $ make test
+    
+## Travis build
+
+CI available [here](https://travis-ci.org/ElPicador/form3-exercise)
 
 ## (Optional) Generate doc
     
-    $ make doc
+Use a tool to transform Markdown to PDF, like http://markdown2pdf.com.
+    
+

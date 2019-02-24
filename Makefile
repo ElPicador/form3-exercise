@@ -4,7 +4,7 @@ run: dep
 
 .PHONY: doc
 doc:
-	pandoc -t beamer -o doc/design.pdf doc/design.md
+	pandoc -t beamer --pdf-engine=/Library/TeX/texbin/pdflatex -o doc/design.pdf doc/design.md
 
 .PHONY: dep
 dep:

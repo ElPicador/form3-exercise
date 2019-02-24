@@ -1,0 +1,1618 @@
+%PDF-1.3
+1 0 obj
+<< /Type /Catalog
+/Outlines 2 0 R
+/Pages 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Outlines /Count 0 >>
+endobj
+3 0 obj
+<< /Type /Pages
+/Kids [6 0 R
+19 0 R
+40 0 R
+52 0 R
+68 0 R
+]
+/Count 5
+/Resources <<
+/ProcSet 4 0 R
+/Font << 
+/F1 8 0 R
+/F2 9 0 R
+/F3 10 0 R
+/F4 21 0 R
+>>
+>>
+/MediaBox [0.000 0.000 595.280 841.890]
+ >>
+endobj
+4 0 obj
+[/PDF /Text ]
+endobj
+5 0 obj
+<<
+/Creator (DOMPDF)
+/CreationDate (D:20190224104448+00'00')
+/ModDate (D:20190224104448+00'00')
+>>
+endobj
+6 0 obj
+<< /Type /Page
+/Parent 3 0 R
+/Annots [ 11 0 R 13 0 R 15 0 R 17 0 R ]
+/Contents 7 0 R
+>>
+endobj
+7 0 obj
+<<
+/Length 4561 >>
+stream
+
+0.000 0.000 0.000 rg
+BT 34.016 768.985 Td /F1 24.0 Tf  [(Design document)] TJ ET
+BT 34.016 730.095 Td /F1 18.0 Tf  [(Goal)] TJ ET
+BT 34.016 699.473 Td /F2 12.0 Tf  [(The project is an API to process payments. The goal is to be able to have CRUD operations on payments: * )] TJ ET
+BT 34.016 685.217 Td /F2 12.0 Tf  [(Read a payment resource * Create a payment resource * Update a payment resource * Delete a payment )] TJ ET
+BT 34.016 670.961 Td /F2 12.0 Tf  [(resource * List payment resources)] TJ ET
+BT 34.016 644.705 Td /F2 12.0 Tf  [(The payment resources should be persisted for later use.)] TJ ET
+BT 34.016 618.449 Td /F2 12.0 Tf  [(We expect the API to be RESTFUL, and it might be consumed by JavaScript)] TJ ET
+BT 34.016 583.551 Td /F1 18.0 Tf  [(Assumptions)] TJ ET
+BT 34.016 552.929 Td /F2 12.0 Tf  [(The proposed solution is based an this assumptions)] TJ ET
+0.000 0.000 0.000 RG
+57.816 529.778 m 
+57.816 530.328 57.589 530.874 57.201 531.263 c
+56.812 531.652 56.266 531.878 55.716 531.878 c
+55.166 531.878 54.620 531.652 54.231 531.263 c
+53.842 530.874 53.616 530.328 53.616 529.778 c
+53.616 529.228 53.842 528.682 54.231 528.293 c
+54.620 527.905 55.166 527.678 55.716 527.678 c
+56.266 527.678 56.812 527.905 57.201 528.293 c
+57.589 528.682 57.816 529.228 57.816 529.778 c f
+BT 64.016 526.673 Td /F2 12.0 Tf  [(The project will be a RESTFUL JSON over HTTP API)] TJ ET
+57.816 515.522 m 
+57.816 516.072 57.589 516.618 57.201 517.007 c
+56.812 517.396 56.266 517.622 55.716 517.622 c
+55.166 517.622 54.620 517.396 54.231 517.007 c
+53.842 516.618 53.616 516.072 53.616 515.522 c
+53.616 514.972 53.842 514.426 54.231 514.037 c
+54.620 513.649 55.166 513.422 55.716 513.422 c
+56.266 513.422 56.812 513.649 57.201 514.037 c
+57.589 514.426 57.816 514.972 57.816 515.522 c f
+BT 64.016 512.417 Td /F2 12.0 Tf  [(As we are dealing with payments, we make the assumption that the user will prefer to wait for an )] TJ ET
+BT 64.016 498.161 Td /F2 12.0 Tf  [(answer from the service rather than having to fetch the state of his action)] TJ ET
+BT 34.016 463.263 Td /F1 18.0 Tf  [(Proposed solution)] TJ ET
+BT 34.016 430.703 Td /F1 14.0 Tf  [(Architecture)] TJ ET
+BT 34.016 403.962 Td /F2 12.0 Tf  [(The API will be composed of 3 main parts: * the routing * the handlers * the storage)] TJ ET
+BT 34.016 377.706 Td /F2 12.0 Tf  [(The routing will be responsible to route the HTTP requests to the correct function. The handlers will handle )] TJ ET
+BT 34.016 363.450 Td /F2 12.0 Tf  [(one route. So we will have 6 handlers, see below for the routes. The storage will be responsible to store, )] TJ ET
+BT 34.016 349.194 Td /F2 12.0 Tf  [(retrieve the payments from the persistent storage)] TJ ET
+BT 34.016 320.999 Td /F1 14.0 Tf  [(Frameworks)] TJ ET
+BT 34.016 294.258 Td /F2 12.0 Tf  [(We will use )] TJ ET
+0.000 0.000 0.800 rg
+BT 94.340 294.258 Td /F2 12.0 Tf  [(gorilla mux)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+94.340 291.558 m 150.008 291.558 l S
+0.000 0.000 0.000 rg
+BT 150.008 294.258 Td /F2 12.0 Tf  [( for the routing. We will use the std lib of go for the handlers. We will also use the )] TJ ET
+BT 34.016 280.002 Td /F2 12.0 Tf  [(std lib of go for the storage.)] TJ ET
+BT 34.016 253.746 Td /F2 12.0 Tf  [(We will use the std lib of go and )] TJ ET
+0.000 0.000 0.800 rg
+BT 193.004 253.746 Td /F2 12.0 Tf  [(testify)] TJ ET
+0.6 w 0 J [  ] 0 d
+193.004 251.046 m 223.004 251.046 l S
+0.000 0.000 0.000 rg
+BT 223.004 253.746 Td /F2 12.0 Tf  [( for the tests.)] TJ ET
+BT 34.016 225.552 Td /F1 14.0 Tf  [(Other notes)] TJ ET
+BT 34.016 198.811 Td /F2 12.0 Tf  [(As the API might be consumed by a Javascript client, we will handle CORS pre-flight requests, with )] TJ ET
+0.000 0.000 0.800 rg
+BT 520.304 198.811 Td /F2 12.0 Tf  [(gorilla )] TJ ET
+0.6 w 0 J [  ] 0 d
+520.304 196.111 m 554.636 196.111 l S
+BT 34.016 184.555 Td /F2 12.0 Tf  [(handlers)] TJ ET
+0.6 w 0 J [  ] 0 d
+34.016 181.855 m 74.672 181.855 l S
+0.000 0.000 0.000 rg
+BT 34.016 158.299 Td /F2 12.0 Tf  [(We do not have a requirement for authentication, so no auth mechanism will added.)] TJ ET
+BT 34.016 132.043 Td /F2 12.0 Tf  [(The API requires to persist its state. We will use a simple, yet robust, storage: the file system. We will )] TJ ET
+BT 34.016 117.787 Td /F2 12.0 Tf  [(enforce a )] TJ ET
+BT 81.320 117.787 Td /F3 12.0 Tf  [(fsync)] TJ ET
+BT 117.320 117.787 Td /F2 12.0 Tf  [( on the disk to be sure the payments are persisted before returning an answer to clients. )] TJ ET
+BT 34.016 103.531 Td /F2 12.0 Tf  [(This way they will know if their request was successful or not.)] TJ ET
+endstream
+endobj
+8 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F1
+/BaseFont /Times-Bold
+/Encoding /WinAnsiEncoding
+>>
+endobj
+9 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F2
+/BaseFont /Times-Roman
+/Encoding /WinAnsiEncoding
+>>
+endobj
+10 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F3
+/BaseFont /Courier
+/Encoding /WinAnsiEncoding
+>>
+endobj
+11 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 12 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 94.3397 293.1784 150.0077 305.0584 ]
+>>
+endobj
+12 0 obj
+<< /Type /Action
+/S /URI
+/URI (https://github.com/gorilla/mux)
+>>
+endobj
+13 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 14 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 193.0037 252.6664 223.0037 264.5464 ]
+>>
+endobj
+14 0 obj
+<< /Type /Action
+/S /URI
+/URI (https://github.com/stretchr/testify)
+>>
+endobj
+15 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 16 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 520.3037 197.7309 554.6357 209.6109 ]
+>>
+endobj
+16 0 obj
+<< /Type /Action
+/S /URI
+/URI (https://github.com/gorilla/handlers)
+>>
+endobj
+17 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 18 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 34.0157 183.4749 74.6717 195.3549 ]
+>>
+endobj
+18 0 obj
+<< /Type /Action
+/S /URI
+/URI (https://github.com/gorilla/handlers)
+>>
+endobj
+19 0 obj
+<< /Type /Page
+/Parent 3 0 R
+/Annots [ 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R 38 0 R ]
+/Contents 20 0 R
+>>
+endobj
+20 0 obj
+<<
+/Length 13784 >>
+stream
+
+0.000 0.000 0.000 rg
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+BT 34.016 784.469 Td /F2 12.0 Tf  [(We will also implement a validation on the incoming data: * make sure it is a valid JSON * make sure it )] TJ ET
+BT 34.016 770.213 Td /F2 12.0 Tf  [(respects the schema found in the )] TJ ET
+0.000 0.000 0.800 rg
+BT 193.316 770.213 Td /F2 12.0 Tf  [(annexe)] TJ ET
+0.6 w 0 J [  ] 0 d
+193.316 767.513 m 227.300 767.513 l S
+0.000 0.000 0.000 rg
+BT 34.016 742.019 Td /F1 14.0 Tf  [(Proposed HTTP paths)] TJ ET
+BT 34.016 715.278 Td /F2 12.0 Tf  [(To be able to change the API, it will be versioned, each HTTP path will be preceded by a number )] TJ ET
+BT 34.016 701.022 Td /F2 12.0 Tf  [(representing the version of the API. Here we will use )] TJ ET
+BT 292.292 701.022 Td /F3 12.0 Tf  [(/1)] TJ ET
+0.000 0.000 0.000 RG
+57.816 677.871 m 
+57.816 678.421 57.589 678.967 57.201 679.356 c
+56.812 679.744 56.266 679.971 55.716 679.971 c
+55.166 679.971 54.620 679.744 54.231 679.356 c
+53.842 678.967 53.616 678.421 53.616 677.871 c
+53.616 677.321 53.842 676.775 54.231 676.386 c
+54.620 675.997 55.166 675.771 55.716 675.771 c
+56.266 675.771 56.812 675.997 57.201 676.386 c
+57.589 676.775 57.816 677.321 57.816 677.871 c f
+BT 64.016 662.766 Td /F2 12.0 Tf  [(Read a payment: )] TJ ET
+BT 147.668 662.766 Td /F3 12.0 Tf  [(GET /1/payments/${uuidv4})] TJ ET
+0.48 w 1 J 1 j
+87.816 639.615 m 
+87.816 640.165 87.589 640.711 87.201 641.100 c
+86.812 641.488 86.266 641.715 85.716 641.715 c
+85.166 641.715 84.620 641.488 84.231 641.100 c
+83.842 640.711 83.616 640.165 83.616 639.615 c
+83.616 639.065 83.842 638.519 84.231 638.130 c
+84.620 637.741 85.166 637.515 85.716 637.515 c
+86.266 637.515 86.812 637.741 87.201 638.130 c
+87.589 638.519 87.816 639.065 87.816 639.615 c s
+BT 94.016 636.510 Td /F2 12.0 Tf  [(Request parameters: )] TJ ET
+113.616 623.259 4.200 4.200 re f
+BT 124.016 622.254 Td /F3 12.0 Tf  [(uuidv1)] TJ ET
+BT 167.216 622.254 Td /F2 12.0 Tf  [(: will represent the )] TJ ET
+BT 259.868 622.254 Td /F3 12.0 Tf  [(id)] TJ ET
+BT 274.268 622.254 Td /F2 12.0 Tf  [( of a payment)] TJ ET
+0.48 w 1 J 1 j
+87.816 611.103 m 
+87.816 611.653 87.589 612.199 87.201 612.588 c
+86.812 612.976 86.266 613.203 85.716 613.203 c
+85.166 613.203 84.620 612.976 84.231 612.588 c
+83.842 612.199 83.616 611.653 83.616 611.103 c
+83.616 610.553 83.842 610.007 84.231 609.618 c
+84.620 609.229 85.166 609.003 85.716 609.003 c
+86.266 609.003 86.812 609.229 87.201 609.618 c
+87.589 610.007 87.816 610.553 87.816 611.103 c s
+BT 94.016 607.998 Td /F2 12.0 Tf  [(Responses: )] TJ ET
+113.616 594.747 4.200 4.200 re f
+BT 124.016 593.742 Td /F3 12.0 Tf  [(200)] TJ ET
+BT 145.616 593.742 Td /F2 12.0 Tf  [(: the response body will be formatted as JSON. The payment attribute will be a )] TJ ET
+BT 124.016 579.371 Td /F2 12.0 Tf  [(payment, as one from the examples. )] TJ ET
+BT 299.984 579.371 Td /F3 12.0 Tf  [(json { "payment": { ... } } )] TJ ET
+113.616 566.091 4.200 4.200 re f
+BT 124.016 565.086 Td /F3 12.0 Tf  [(400)] TJ ET
+BT 145.616 565.086 Td /F2 12.0 Tf  [( if )] TJ ET
+BT 158.948 565.086 Td /F3 12.0 Tf  [(uuidv4)] TJ ET
+BT 202.148 565.086 Td /F2 12.0 Tf  [( is not a valid UUIDv4, )] TJ ET
+0.000 0.000 0.800 rg
+BT 317.804 565.086 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+317.804 562.386 m 333.128 562.386 l S
+0.000 0.000 0.000 rg
+113.616 551.835 4.200 4.200 re f
+BT 124.016 550.715 Td /F3 12.0 Tf  [(404)] TJ ET
+BT 145.616 550.715 Td /F2 12.0 Tf  [( if the payment id )] TJ ET
+BT 233.276 550.715 Td /F3 12.0 Tf  [(uuidv4)] TJ ET
+BT 276.476 550.715 Td /F2 12.0 Tf  [( doesn't exist in the storage)] TJ ET
+113.616 537.435 4.200 4.200 re f
+BT 124.016 536.430 Td /F3 12.0 Tf  [(500)] TJ ET
+BT 145.616 536.430 Td /F2 12.0 Tf  [( for a server error, )] TJ ET
+0.000 0.000 0.800 rg
+BT 235.568 536.430 Td /F2 12.0 Tf  [(see)] TJ ET
+0.6 w 0 J [  ] 0 d
+235.568 533.730 m 250.892 533.730 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 525.279 m 
+57.816 525.829 57.589 526.375 57.201 526.764 c
+56.812 527.152 56.266 527.379 55.716 527.379 c
+55.166 527.379 54.620 527.152 54.231 526.764 c
+53.842 526.375 53.616 525.829 53.616 525.279 c
+53.616 524.729 53.842 524.183 54.231 523.794 c
+54.620 523.405 55.166 523.179 55.716 523.179 c
+56.266 523.179 56.812 523.405 57.201 523.794 c
+57.589 524.183 57.816 524.729 57.816 525.279 c f
+BT 64.016 510.174 Td /F2 12.0 Tf  [(Create a payment: )] TJ ET
+BT 154.328 510.174 Td /F3 12.0 Tf  [(POST /1/payments)] TJ ET
+0.48 w 1 J 1 j
+87.816 487.023 m 
+87.816 487.573 87.589 488.119 87.201 488.508 c
+86.812 488.896 86.266 489.123 85.716 489.123 c
+85.166 489.123 84.620 488.896 84.231 488.508 c
+83.842 488.119 83.616 487.573 83.616 487.023 c
+83.616 486.473 83.842 485.927 84.231 485.538 c
+84.620 485.149 85.166 484.923 85.716 484.923 c
+86.266 484.923 86.812 485.149 87.201 485.538 c
+87.589 485.927 87.816 486.473 87.816 487.023 c s
+BT 94.016 483.918 Td /F2 12.0 Tf  [(Request body: )] TJ ET
+113.616 470.667 4.200 4.200 re f
+BT 124.016 469.662 Td /F2 12.0 Tf  [(the body will be a JSON representation of a payment, )] TJ ET
+BT 384.308 469.662 Td /F4 12.0 Tf  [(without)] TJ ET
+BT 420.320 469.662 Td /F2 12.0 Tf  [( the )] TJ ET
+BT 440.984 469.662 Td /F3 12.0 Tf  [(id)] TJ ET
+BT 455.384 469.662 Td /F2 12.0 Tf  [(. This field will be )] TJ ET
+BT 124.016 455.406 Td /F2 12.0 Tf  [(generated by the API)] TJ ET
+0.48 w 1 J 1 j
+87.816 444.255 m 
+87.816 444.805 87.589 445.351 87.201 445.740 c
+86.812 446.128 86.266 446.355 85.716 446.355 c
+85.166 446.355 84.620 446.128 84.231 445.740 c
+83.842 445.351 83.616 444.805 83.616 444.255 c
+83.616 443.705 83.842 443.159 84.231 442.770 c
+84.620 442.381 85.166 442.155 85.716 442.155 c
+86.266 442.155 86.812 442.381 87.201 442.770 c
+87.589 443.159 87.816 443.705 87.816 444.255 c s
+BT 94.016 441.150 Td /F2 12.0 Tf  [(Responses: )] TJ ET
+113.616 427.899 4.200 4.200 re f
+BT 124.016 426.894 Td /F3 12.0 Tf  [(201)] TJ ET
+BT 145.616 426.894 Td /F2 12.0 Tf  [( if the payment was successfully created, the response body will formatted as JSON. )] TJ ET
+BT 124.016 412.638 Td /F2 12.0 Tf  [(The field )] TJ ET
+BT 170.672 412.638 Td /F3 12.0 Tf  [(payment_id)] TJ ET
+BT 242.672 412.638 Td /F2 12.0 Tf  [( will contain the generated UUIDv4 )] TJ ET
+BT 417.968 412.638 Td /F3 12.0 Tf  [(json { )] TJ ET
+BT 124.016 399.827 Td /F3 12.0 Tf  [("payment_id": "uuidv4" } )] TJ ET
+113.616 386.936 4.200 4.200 re f
+BT 124.016 385.816 Td /F3 12.0 Tf  [(400)] TJ ET
+BT 145.616 385.816 Td /F2 12.0 Tf  [( if the JSON is not a valid, )] TJ ET
+0.000 0.000 0.800 rg
+BT 275.948 385.816 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+275.948 383.116 m 291.272 383.116 l S
+0.000 0.000 0.000 rg
+BT 291.272 385.816 Td /F2 12.0 Tf  [( and )] TJ ET
+0.000 0.000 0.800 rg
+BT 314.600 385.816 Td /F2 12.0 Tf  [(see)] TJ ET
+0.6 w 0 J [  ] 0 d
+314.600 383.116 m 329.924 383.116 l S
+0.000 0.000 0.000 rg
+113.616 372.536 4.200 4.200 re f
+BT 124.016 371.532 Td /F3 12.0 Tf  [(500)] TJ ET
+BT 145.616 371.532 Td /F2 12.0 Tf  [( for a server error, )] TJ ET
+0.000 0.000 0.800 rg
+BT 235.568 371.532 Td /F2 12.0 Tf  [(see)] TJ ET
+0.6 w 0 J [  ] 0 d
+235.568 368.832 m 250.892 368.832 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 360.380 m 
+57.816 360.930 57.589 361.477 57.201 361.865 c
+56.812 362.254 56.266 362.480 55.716 362.480 c
+55.166 362.480 54.620 362.254 54.231 361.865 c
+53.842 361.477 53.616 360.930 53.616 360.380 c
+53.616 359.831 53.842 359.284 54.231 358.896 c
+54.620 358.507 55.166 358.280 55.716 358.280 c
+56.266 358.280 56.812 358.507 57.201 358.896 c
+57.589 359.284 57.816 359.831 57.816 360.380 c f
+BT 64.016 345.276 Td /F2 12.0 Tf  [(Update a payment: )] TJ ET
+BT 157.664 345.276 Td /F3 12.0 Tf  [(PUT /1/payments/${uuidv4})] TJ ET
+0.48 w 1 J 1 j
+87.816 322.124 m 
+87.816 322.674 87.589 323.221 87.201 323.609 c
+86.812 323.998 86.266 324.224 85.716 324.224 c
+85.166 324.224 84.620 323.998 84.231 323.609 c
+83.842 323.221 83.616 322.674 83.616 322.124 c
+83.616 321.575 83.842 321.028 84.231 320.640 c
+84.620 320.251 85.166 320.024 85.716 320.024 c
+86.266 320.024 86.812 320.251 87.201 320.640 c
+87.589 321.028 87.816 321.575 87.816 322.124 c s
+BT 94.016 319.020 Td /F2 12.0 Tf  [(Request parameters: )] TJ ET
+113.616 305.768 4.200 4.200 re f
+BT 124.016 304.764 Td /F3 12.0 Tf  [(uuidv1)] TJ ET
+BT 167.216 304.764 Td /F2 12.0 Tf  [(: will represent the )] TJ ET
+BT 259.868 304.764 Td /F3 12.0 Tf  [(id)] TJ ET
+BT 274.268 304.764 Td /F2 12.0 Tf  [( of a payment)] TJ ET
+0.48 w 1 J 1 j
+87.816 293.612 m 
+87.816 294.162 87.589 294.709 87.201 295.097 c
+86.812 295.486 86.266 295.712 85.716 295.712 c
+85.166 295.712 84.620 295.486 84.231 295.097 c
+83.842 294.709 83.616 294.162 83.616 293.612 c
+83.616 293.063 83.842 292.516 84.231 292.128 c
+84.620 291.739 85.166 291.512 85.716 291.512 c
+86.266 291.512 86.812 291.739 87.201 292.128 c
+87.589 292.516 87.816 293.063 87.816 293.612 c s
+BT 94.016 290.508 Td /F2 12.0 Tf  [(Request Body: )] TJ ET
+113.616 277.256 4.200 4.200 re f
+BT 124.016 276.252 Td /F2 12.0 Tf  [(the body will be a JSON representation of a payment, )] TJ ET
+BT 384.308 276.252 Td /F4 12.0 Tf  [(without)] TJ ET
+BT 420.320 276.252 Td /F2 12.0 Tf  [( the )] TJ ET
+BT 440.984 276.252 Td /F3 12.0 Tf  [(id)] TJ ET
+BT 455.384 276.252 Td /F2 12.0 Tf  [(. This field will be )] TJ ET
+BT 124.016 261.996 Td /F2 12.0 Tf  [(generated by the API)] TJ ET
+0.48 w 1 J 1 j
+87.816 250.844 m 
+87.816 251.394 87.589 251.941 87.201 252.329 c
+86.812 252.718 86.266 252.944 85.716 252.944 c
+85.166 252.944 84.620 252.718 84.231 252.329 c
+83.842 251.941 83.616 251.394 83.616 250.844 c
+83.616 250.295 83.842 249.748 84.231 249.360 c
+84.620 248.971 85.166 248.744 85.716 248.744 c
+86.266 248.744 86.812 248.971 87.201 249.360 c
+87.589 249.748 87.816 250.295 87.816 250.844 c s
+BT 94.016 247.740 Td /F2 12.0 Tf  [(Responses: )] TJ ET
+113.616 234.488 4.200 4.200 re f
+BT 124.016 233.484 Td /F3 12.0 Tf  [(204)] TJ ET
+BT 145.616 233.484 Td /F2 12.0 Tf  [( if the payment was successfully updated)] TJ ET
+113.616 220.232 4.200 4.200 re f
+BT 124.016 219.228 Td /F3 12.0 Tf  [(400)] TJ ET
+BT 145.616 219.228 Td /F2 12.0 Tf  [( if )] TJ ET
+BT 158.948 219.228 Td /F3 12.0 Tf  [(uuidv4)] TJ ET
+BT 202.148 219.228 Td /F2 12.0 Tf  [( is not a valid UUIDv2 or if the JSON is not valid, )] TJ ET
+0.000 0.000 0.800 rg
+BT 446.804 219.228 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+446.804 216.528 m 462.128 216.528 l S
+0.000 0.000 0.000 rg
+BT 462.128 219.228 Td /F2 12.0 Tf  [( and )] TJ ET
+0.000 0.000 0.800 rg
+BT 485.456 219.228 Td /F2 12.0 Tf  [(see)] TJ ET
+0.6 w 0 J [  ] 0 d
+485.456 216.528 m 500.780 216.528 l S
+0.000 0.000 0.000 rg
+113.616 205.976 4.200 4.200 re f
+BT 124.016 204.856 Td /F3 12.0 Tf  [(404)] TJ ET
+BT 145.616 204.856 Td /F2 12.0 Tf  [( if the payment id )] TJ ET
+BT 233.276 204.856 Td /F3 12.0 Tf  [(uuidv4)] TJ ET
+BT 276.476 204.856 Td /F2 12.0 Tf  [( doesn't exist in the storage)] TJ ET
+113.616 191.576 4.200 4.200 re f
+BT 124.016 190.572 Td /F3 12.0 Tf  [(500)] TJ ET
+BT 145.616 190.572 Td /F2 12.0 Tf  [( for a server error, )] TJ ET
+0.000 0.000 0.800 rg
+BT 235.568 190.572 Td /F2 12.0 Tf  [(see)] TJ ET
+0.6 w 0 J [  ] 0 d
+235.568 187.872 m 250.892 187.872 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 179.420 m 
+57.816 179.970 57.589 180.517 57.201 180.905 c
+56.812 181.294 56.266 181.520 55.716 181.520 c
+55.166 181.520 54.620 181.294 54.231 180.905 c
+53.842 180.517 53.616 179.970 53.616 179.420 c
+53.616 178.871 53.842 178.324 54.231 177.936 c
+54.620 177.547 55.166 177.320 55.716 177.320 c
+56.266 177.320 56.812 177.547 57.201 177.936 c
+57.589 178.324 57.816 178.871 57.816 179.420 c f
+BT 64.016 164.316 Td /F2 12.0 Tf  [(Delete a payment: )] TJ ET
+BT 154.328 164.316 Td /F3 12.0 Tf  [(DELETE /1/payments/${uuidv4})] TJ ET
+0.48 w 1 J 1 j
+87.816 141.164 m 
+87.816 141.714 87.589 142.261 87.201 142.649 c
+86.812 143.038 86.266 143.264 85.716 143.264 c
+85.166 143.264 84.620 143.038 84.231 142.649 c
+83.842 142.261 83.616 141.714 83.616 141.164 c
+83.616 140.615 83.842 140.068 84.231 139.680 c
+84.620 139.291 85.166 139.064 85.716 139.064 c
+86.266 139.064 86.812 139.291 87.201 139.680 c
+87.589 140.068 87.816 140.615 87.816 141.164 c s
+BT 94.016 138.060 Td /F2 12.0 Tf  [(Request parameters: )] TJ ET
+113.616 124.808 4.200 4.200 re f
+BT 124.016 123.804 Td /F3 12.0 Tf  [(uuidv1)] TJ ET
+BT 167.216 123.804 Td /F2 12.0 Tf  [(: will represent the )] TJ ET
+BT 259.868 123.804 Td /F3 12.0 Tf  [(id)] TJ ET
+BT 274.268 123.804 Td /F2 12.0 Tf  [( of a payment)] TJ ET
+0.48 w 1 J 1 j
+87.816 112.652 m 
+87.816 113.202 87.589 113.749 87.201 114.137 c
+86.812 114.526 86.266 114.752 85.716 114.752 c
+85.166 114.752 84.620 114.526 84.231 114.137 c
+83.842 113.749 83.616 113.202 83.616 112.652 c
+83.616 112.103 83.842 111.556 84.231 111.168 c
+84.620 110.779 85.166 110.552 85.716 110.552 c
+86.266 110.552 86.812 110.779 87.201 111.168 c
+87.589 111.556 87.816 112.103 87.816 112.652 c s
+BT 94.016 109.548 Td /F2 12.0 Tf  [(Request Body: )] TJ ET
+113.616 96.296 4.200 4.200 re f
+BT 124.016 95.292 Td /F2 12.0 Tf  [(the body will be a JSON representation of a payment, )] TJ ET
+BT 384.308 95.292 Td /F4 12.0 Tf  [(without)] TJ ET
+BT 420.320 95.292 Td /F2 12.0 Tf  [( the )] TJ ET
+BT 440.984 95.292 Td /F3 12.0 Tf  [(id)] TJ ET
+BT 455.384 95.292 Td /F2 12.0 Tf  [(. This field will be )] TJ ET
+BT 124.016 81.036 Td /F2 12.0 Tf  [(generated by the API)] TJ ET
+0.48 w 1 J 1 j
+87.816 69.884 m 
+87.816 70.434 87.589 70.981 87.201 71.369 c
+86.812 71.758 86.266 71.984 85.716 71.984 c
+85.166 71.984 84.620 71.758 84.231 71.369 c
+83.842 70.981 83.616 70.434 83.616 69.884 c
+83.616 69.335 83.842 68.788 84.231 68.400 c
+84.620 68.011 85.166 67.784 85.716 67.784 c
+86.266 67.784 86.812 68.011 87.201 68.400 c
+87.589 68.788 87.816 69.335 87.816 69.884 c s
+BT 94.016 66.780 Td /F2 12.0 Tf  [(Responses: )] TJ ET
+endstream
+endobj
+21 0 obj
+<< /Type /Font
+/Subtype /Type1
+/Name /F4
+/BaseFont /Times-Italic
+/Encoding /WinAnsiEncoding
+>>
+endobj
+22 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 23 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 193.3157 769.1335 227.2997 781.0135 ]
+>>
+endobj
+23 0 obj
+<< /Type /Action
+>>
+endobj
+24 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 25 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 317.8037 564.0059 333.1277 575.8859 ]
+>>
+endobj
+25 0 obj
+<< /Type /Action
+>>
+endobj
+26 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 27 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 235.5677 535.3499 250.8917 547.2299 ]
+>>
+endobj
+27 0 obj
+<< /Type /Action
+>>
+endobj
+28 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 29 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 275.9477 384.7365 291.2717 396.6165 ]
+>>
+endobj
+29 0 obj
+<< /Type /Action
+>>
+endobj
+30 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 31 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 314.5997 384.7365 329.9237 396.6165 ]
+>>
+endobj
+31 0 obj
+<< /Type /Action
+>>
+endobj
+32 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 33 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 235.5677 370.4517 250.8917 382.3317 ]
+>>
+endobj
+33 0 obj
+<< /Type /Action
+>>
+endobj
+34 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 35 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 446.8037 218.1477 462.1277 230.0277 ]
+>>
+endobj
+35 0 obj
+<< /Type /Action
+>>
+endobj
+36 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 37 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 485.4557 218.1477 500.7797 230.0277 ]
+>>
+endobj
+37 0 obj
+<< /Type /Action
+>>
+endobj
+38 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 39 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 235.5677 189.4917 250.8917 201.3717 ]
+>>
+endobj
+39 0 obj
+<< /Type /Action
+>>
+endobj
+40 0 obj
+<< /Type /Page
+/Parent 3 0 R
+/Annots [ 42 0 R 44 0 R 46 0 R 48 0 R 50 0 R ]
+/Contents 41 0 R
+>>
+endobj
+41 0 obj
+<<
+/Length 8983 >>
+stream
+
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+0.48 w 1 J 1 j
+113.616 797.474 4.200 4.200 re f
+BT 124.016 796.469 Td /F3 12.0 Tf  [(204)] TJ ET
+BT 145.616 796.469 Td /F2 12.0 Tf  [( if the payment was successfully deleted)] TJ ET
+113.616 783.218 4.200 4.200 re f
+BT 124.016 782.213 Td /F3 12.0 Tf  [(400)] TJ ET
+BT 145.616 782.213 Td /F2 12.0 Tf  [( if )] TJ ET
+BT 158.948 782.213 Td /F3 12.0 Tf  [(uuidv4)] TJ ET
+BT 202.148 782.213 Td /F2 12.0 Tf  [( is not a valid UUIDv4, )] TJ ET
+0.000 0.000 0.800 rg
+BT 317.804 782.213 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+317.804 779.513 m 333.128 779.513 l S
+0.000 0.000 0.000 rg
+113.616 768.962 4.200 4.200 re f
+BT 124.016 767.842 Td /F3 12.0 Tf  [(404)] TJ ET
+BT 145.616 767.842 Td /F2 12.0 Tf  [( if the payment id )] TJ ET
+BT 233.276 767.842 Td /F3 12.0 Tf  [(uuidv4)] TJ ET
+BT 276.476 767.842 Td /F2 12.0 Tf  [( doesn't exist in the storage)] TJ ET
+113.616 754.562 4.200 4.200 re f
+BT 124.016 753.557 Td /F3 12.0 Tf  [(500)] TJ ET
+BT 145.616 753.557 Td /F2 12.0 Tf  [( for a server error, )] TJ ET
+0.000 0.000 0.800 rg
+BT 235.568 753.557 Td /F2 12.0 Tf  [(see)] TJ ET
+0.6 w 0 J [  ] 0 d
+235.568 750.857 m 250.892 750.857 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 742.406 m 
+57.816 742.956 57.589 743.502 57.201 743.891 c
+56.812 744.280 56.266 744.506 55.716 744.506 c
+55.166 744.506 54.620 744.280 54.231 743.891 c
+53.842 743.502 53.616 742.956 53.616 742.406 c
+53.616 741.856 53.842 741.310 54.231 740.921 c
+54.620 740.533 55.166 740.306 55.716 740.306 c
+56.266 740.306 56.812 740.533 57.201 740.921 c
+57.589 741.310 57.816 741.856 57.816 742.406 c f
+BT 64.016 727.301 Td /F2 12.0 Tf  [(List all payments: )] TJ ET
+BT 153.020 727.301 Td /F3 12.0 Tf  [(GET /1/payments)] TJ ET
+0.48 w 1 J 1 j
+87.816 704.150 m 
+87.816 704.700 87.589 705.246 87.201 705.635 c
+86.812 706.024 86.266 706.250 85.716 706.250 c
+85.166 706.250 84.620 706.024 84.231 705.635 c
+83.842 705.246 83.616 704.700 83.616 704.150 c
+83.616 703.600 83.842 703.054 84.231 702.665 c
+84.620 702.277 85.166 702.050 85.716 702.050 c
+86.266 702.050 86.812 702.277 87.201 702.665 c
+87.589 703.054 87.816 703.600 87.816 704.150 c s
+BT 94.016 701.045 Td /F2 12.0 Tf  [(Responses: )] TJ ET
+113.616 687.794 4.200 4.200 re f
+BT 124.016 686.789 Td /F3 12.0 Tf  [(200)] TJ ET
+BT 145.616 686.789 Td /F2 12.0 Tf  [(: the response body will be formatted as JSON. The )] TJ ET
+BT 396.584 686.789 Td /F3 12.0 Tf  [(payments)] TJ ET
+BT 454.184 686.789 Td /F2 12.0 Tf  [( attribute will be an )] TJ ET
+BT 124.016 672.533 Td /F2 12.0 Tf  [(array of payment, as one from the examples: )] TJ ET
+BT 340.964 672.533 Td /F3 12.0 Tf  [(json { "payments": [...] } )] TJ ET
+113.616 659.282 4.200 4.200 re f
+BT 124.016 658.277 Td /F3 12.0 Tf  [(500)] TJ ET
+BT 145.616 658.277 Td /F2 12.0 Tf  [( for a server error, )] TJ ET
+0.000 0.000 0.800 rg
+BT 235.568 658.277 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+235.568 655.577 m 250.892 655.577 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 647.126 m 
+57.816 647.676 57.589 648.222 57.201 648.611 c
+56.812 649.000 56.266 649.226 55.716 649.226 c
+55.166 649.226 54.620 649.000 54.231 648.611 c
+53.842 648.222 53.616 647.676 53.616 647.126 c
+53.616 646.576 53.842 646.030 54.231 645.641 c
+54.620 645.253 55.166 645.026 55.716 645.026 c
+56.266 645.026 56.812 645.253 57.201 645.641 c
+57.589 646.030 57.816 646.576 57.816 647.126 c f
+BT 64.016 632.021 Td /F2 12.0 Tf  [(Check if the server is alive: )] TJ ET
+BT 198.656 632.021 Td /F3 12.0 Tf  [(GET /isalive)] TJ ET
+0.48 w 1 J 1 j
+87.816 608.870 m 
+87.816 609.420 87.589 609.966 87.201 610.355 c
+86.812 610.744 86.266 610.970 85.716 610.970 c
+85.166 610.970 84.620 610.744 84.231 610.355 c
+83.842 609.966 83.616 609.420 83.616 608.870 c
+83.616 608.320 83.842 607.774 84.231 607.385 c
+84.620 606.997 85.166 606.770 85.716 606.770 c
+86.266 606.770 86.812 606.997 87.201 607.385 c
+87.589 607.774 87.816 608.320 87.816 608.870 c s
+BT 94.016 605.765 Td /F2 12.0 Tf  [(Responses: )] TJ ET
+113.616 592.514 4.200 4.200 re f
+BT 124.016 591.509 Td /F3 12.0 Tf  [(200)] TJ ET
+BT 145.616 591.509 Td /F2 12.0 Tf  [(: the response body will be formatted as JSON. The )] TJ ET
+BT 396.584 591.509 Td /F3 12.0 Tf  [(payments)] TJ ET
+BT 454.184 591.509 Td /F2 12.0 Tf  [( attribute will be an )] TJ ET
+BT 124.016 577.253 Td /F2 12.0 Tf  [(array of payment, as one from the examples: )] TJ ET
+BT 340.964 577.253 Td /F3 12.0 Tf  [(json { "yes": "i_am" } )] TJ ET
+113.616 564.002 4.200 4.200 re f
+BT 124.016 562.997 Td /F3 12.0 Tf  [(500)] TJ ET
+BT 145.616 562.997 Td /F2 12.0 Tf  [( for a server error, )] TJ ET
+0.000 0.000 0.800 rg
+BT 235.568 562.997 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+235.568 560.297 m 250.892 560.297 l S
+0.000 0.000 0.000 rg
+BT 34.016 532.781 Td /F1 12.0 Tf  [(Common HTTP answers)] TJ ET
+BT 34.016 502.565 Td /F2 12.0 Tf  [(All )] TJ ET
+BT 52.352 502.565 Td /F3 12.0 Tf  [(4XX)] TJ ET
+BT 73.952 502.565 Td /F2 12.0 Tf  [( and )] TJ ET
+BT 97.280 502.565 Td /F3 12.0 Tf  [(5XX)] TJ ET
+BT 118.880 502.565 Td /F2 12.0 Tf  [( errors will have the same JSON response body )] TJ ET
+BT 349.172 502.565 Td /F3 12.0 Tf  [(json { "code": "$code", )] TJ ET
+BT 34.016 489.754 Td /F3 12.0 Tf  [("message": "$message" } )] TJ ET
+0.000 0.000 0.000 RG
+57.816 466.964 m 
+57.816 467.514 57.589 468.060 57.201 468.449 c
+56.812 468.838 56.266 469.064 55.716 469.064 c
+55.166 469.064 54.620 468.838 54.231 468.449 c
+53.842 468.060 53.616 467.514 53.616 466.964 c
+53.616 466.414 53.842 465.868 54.231 465.479 c
+54.620 465.090 55.166 464.864 55.716 464.864 c
+56.266 464.864 56.812 465.090 57.201 465.479 c
+57.589 465.868 57.816 466.414 57.816 466.964 c f
+BT 64.016 463.859 Td /F3 12.0 Tf  [($code)] TJ ET
+BT 100.016 463.859 Td /F2 12.0 Tf  [( will represent the http error code as an integer. Some developers prefer to also have the error )] TJ ET
+BT 64.016 449.603 Td /F2 12.0 Tf  [(code in the response body)] TJ ET
+57.816 438.452 m 
+57.816 439.002 57.589 439.548 57.201 439.937 c
+56.812 440.326 56.266 440.552 55.716 440.552 c
+55.166 440.552 54.620 440.326 54.231 439.937 c
+53.842 439.548 53.616 439.002 53.616 438.452 c
+53.616 437.902 53.842 437.356 54.231 436.967 c
+54.620 436.578 55.166 436.352 55.716 436.352 c
+56.266 436.352 56.812 436.578 57.201 436.967 c
+57.589 437.356 57.816 437.902 57.816 438.452 c f
+BT 64.016 435.347 Td /F3 12.0 Tf  [($message)] TJ ET
+BT 121.616 435.347 Td /F2 12.0 Tf  [( will be a string representing the error. Either a error validation message or a )] TJ ET
+BT 491.528 435.347 Td /F3 12.0 Tf  [(Internal )] TJ ET
+BT 64.016 421.091 Td /F3 12.0 Tf  [(server error)] TJ ET
+BT 150.416 421.091 Td /F2 12.0 Tf  [( for a )] TJ ET
+BT 178.736 421.091 Td /F3 12.0 Tf  [(500)] TJ ET
+BT 34.016 386.193 Td /F1 18.0 Tf  [(Further evolution)] TJ ET
+BT 34.016 355.571 Td /F2 12.0 Tf  [(As we are dealing with payments, in a real world case we would need to implement authentication and rights )] TJ ET
+BT 34.016 341.315 Td /F2 12.0 Tf  [(managements. Depending on the needs, I would either go for: * Basic HTTP auth * Signature of the )] TJ ET
+BT 34.016 327.059 Td /F2 12.0 Tf  [(incoming calls, with a shared secret * Use of a well known auth mechanism \(oauth2, or any other\))] TJ ET
+BT 34.016 300.803 Td /F2 12.0 Tf  [(If we want to continue to use HTTP, of course all requests must at least be encrypted by TLS so HTTPS.)] TJ ET
+BT 34.016 274.547 Td /F2 12.0 Tf  [(I would also have a stronger validation of the incoming data. It seems a lot of data stored as )] TJ ET
+BT 476.612 274.547 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 519.812 274.547 Td /F2 12.0 Tf  [( are )] TJ ET
+BT 34.016 260.291 Td /F2 12.0 Tf  [(something else \(enumerations, big decimal, dates, addresses, etc.\))] TJ ET
+BT 34.016 234.035 Td /F2 12.0 Tf  [(We could provide an )] TJ ET
+0.000 0.000 0.800 rg
+BT 137.324 234.035 Td /F2 12.0 Tf  [(openapi)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+137.324 231.335 m 175.316 231.335 l S
+0.000 0.000 0.000 rg
+BT 175.316 234.035 Td /F2 12.0 Tf  [( representation of the API. I will both provide documentation internally, and )] TJ ET
+BT 34.016 219.779 Td /F2 12.0 Tf  [(also be sharable to customers for them to implement the API.)] TJ ET
+BT 34.016 193.523 Td /F2 12.0 Tf  [(For the storage, I think the filesystem is a good trade off, it provides atomicity, but it doesnt scale well as it's )] TJ ET
+BT 34.016 179.267 Td /F2 12.0 Tf  [(only on one machine. If the API would require more scalability I would go for a RDBMS. As we are dealing )] TJ ET
+BT 34.016 165.011 Td /F2 12.0 Tf  [(with payments the ACID properties ensured my a standard SQL database is a must have.)] TJ ET
+BT 34.016 138.755 Td /F2 12.0 Tf  [(For the API to be production ready, I would at least add: * better logging * metrics reporting \(latency to )] TJ ET
+BT 34.016 124.499 Td /F2 12.0 Tf  [(storage, latency of the full API, number of requests, etc.\))] TJ ET
+BT 34.016 89.601 Td /F1 18.0 Tf  [(Annexe)] TJ ET
+endstream
+endobj
+42 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 43 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 317.8037 781.1335 333.1277 793.0135 ]
+>>
+endobj
+43 0 obj
+<< /Type /Action
+>>
+endobj
+44 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 45 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 235.5677 752.4775 250.8917 764.3575 ]
+>>
+endobj
+45 0 obj
+<< /Type /Action
+>>
+endobj
+46 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 47 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 235.5677 657.1975 250.8917 669.0775 ]
+>>
+endobj
+47 0 obj
+<< /Type /Action
+>>
+endobj
+48 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 49 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 235.5677 561.9175 250.8917 573.7975 ]
+>>
+endobj
+49 0 obj
+<< /Type /Action
+>>
+endobj
+50 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 51 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 137.3237 232.9552 175.3157 244.8352 ]
+>>
+endobj
+51 0 obj
+<< /Type /Action
+/S /URI
+/URI (https://swagger.io/docs/specification/about/)
+>>
+endobj
+52 0 obj
+<< /Type /Page
+/Parent 3 0 R
+/Annots [ 54 0 R 56 0 R 58 0 R 60 0 R 62 0 R 64 0 R 66 0 R ]
+/Contents 53 0 R
+>>
+endobj
+53 0 obj
+<<
+/Length 19975 >>
+stream
+
+0.000 0.000 0.000 rg
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+BT 34.016 782.531 Td /F1 14.0 Tf  [(JSON schema of the payments)] TJ ET
+BT 34.016 755.790 Td /F2 12.0 Tf  [(Based on the provided examples of payments, I inferred the schema of a payment to look like this:)] TJ ET
+BT 34.016 725.574 Td /F1 12.0 Tf  [(Payment)] TJ ET
+0.000 0.000 0.000 RG
+57.816 698.463 m 
+57.816 699.013 57.589 699.559 57.201 699.948 c
+56.812 700.336 56.266 700.563 55.716 700.563 c
+55.166 700.563 54.620 700.336 54.231 699.948 c
+53.842 699.559 53.616 699.013 53.616 698.463 c
+53.616 697.913 53.842 697.367 54.231 696.978 c
+54.620 696.589 55.166 696.363 55.716 696.363 c
+56.266 696.363 56.812 696.589 57.201 696.978 c
+57.589 697.367 57.816 697.913 57.816 698.463 c f
+BT 64.016 695.358 Td /F2 12.0 Tf  [(type: )] TJ ET
+BT 91.016 695.358 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 684.207 m 
+57.816 684.757 57.589 685.303 57.201 685.692 c
+56.812 686.080 56.266 686.307 55.716 686.307 c
+55.166 686.307 54.620 686.080 54.231 685.692 c
+53.842 685.303 53.616 684.757 53.616 684.207 c
+53.616 683.657 53.842 683.111 54.231 682.722 c
+54.620 682.333 55.166 682.107 55.716 682.107 c
+56.266 682.107 56.812 682.333 57.201 682.722 c
+57.589 683.111 57.816 683.657 57.816 684.207 c f
+BT 64.016 681.102 Td /F2 12.0 Tf  [(id: )] TJ ET
+BT 79.688 681.102 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 122.888 681.102 Td /F2 12.0 Tf  [(, representing a UUIDv4)] TJ ET
+57.816 669.951 m 
+57.816 670.501 57.589 671.047 57.201 671.436 c
+56.812 671.824 56.266 672.051 55.716 672.051 c
+55.166 672.051 54.620 671.824 54.231 671.436 c
+53.842 671.047 53.616 670.501 53.616 669.951 c
+53.616 669.401 53.842 668.855 54.231 668.466 c
+54.620 668.077 55.166 667.851 55.716 667.851 c
+56.266 667.851 56.812 668.077 57.201 668.466 c
+57.589 668.855 57.816 669.401 57.816 669.951 c f
+BT 64.016 666.846 Td /F2 12.0 Tf  [(version: )] TJ ET
+BT 105.680 666.846 Td /F3 12.0 Tf  [(unsigned integer)] TJ ET
+57.816 655.695 m 
+57.816 656.245 57.589 656.791 57.201 657.180 c
+56.812 657.568 56.266 657.795 55.716 657.795 c
+55.166 657.795 54.620 657.568 54.231 657.180 c
+53.842 656.791 53.616 656.245 53.616 655.695 c
+53.616 655.145 53.842 654.599 54.231 654.210 c
+54.620 653.821 55.166 653.595 55.716 653.595 c
+56.266 653.595 56.812 653.821 57.201 654.210 c
+57.589 654.599 57.816 655.145 57.816 655.695 c f
+BT 64.016 652.590 Td /F2 12.0 Tf  [(organisation_id: )] TJ ET
+BT 145.016 652.590 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 188.216 652.590 Td /F2 12.0 Tf  [(, representing a UUIDv4)] TJ ET
+57.816 641.439 m 
+57.816 641.989 57.589 642.535 57.201 642.924 c
+56.812 643.312 56.266 643.539 55.716 643.539 c
+55.166 643.539 54.620 643.312 54.231 642.924 c
+53.842 642.535 53.616 641.989 53.616 641.439 c
+53.616 640.889 53.842 640.343 54.231 639.954 c
+54.620 639.565 55.166 639.339 55.716 639.339 c
+56.266 639.339 56.812 639.565 57.201 639.954 c
+57.589 640.343 57.816 640.889 57.816 641.439 c f
+BT 64.016 638.334 Td /F2 12.0 Tf  [(attributes: )] TJ ET
+BT 115.016 638.334 Td /F3 12.0 Tf  [(object)] TJ ET
+BT 158.216 638.334 Td /F2 12.0 Tf  [(, )] TJ ET
+0.000 0.000 0.800 rg
+BT 164.216 638.334 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+164.216 635.634 m 179.540 635.634 l S
+0.000 0.000 0.000 rg
+BT 34.016 608.118 Td /F1 12.0 Tf  [(Payment attributes)] TJ ET
+0.000 0.000 0.000 RG
+57.816 581.007 m 
+57.816 581.557 57.589 582.103 57.201 582.492 c
+56.812 582.880 56.266 583.107 55.716 583.107 c
+55.166 583.107 54.620 582.880 54.231 582.492 c
+53.842 582.103 53.616 581.557 53.616 581.007 c
+53.616 580.457 53.842 579.911 54.231 579.522 c
+54.620 579.133 55.166 578.907 55.716 578.907 c
+56.266 578.907 56.812 579.133 57.201 579.522 c
+57.589 579.911 57.816 580.457 57.816 581.007 c f
+BT 64.016 577.902 Td /F2 12.0 Tf  [(amount: )] TJ ET
+BT 106.352 577.902 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 149.552 577.902 Td /F2 12.0 Tf  [(, I inferred it's a string representation of a big decimal, but I'll use )] TJ ET
+BT 466.484 577.902 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 509.684 577.902 Td /F2 12.0 Tf  [( for the )] TJ ET
+BT 64.016 563.646 Td /F2 12.0 Tf  [(sake of this test)] TJ ET
+57.816 552.495 m 
+57.816 553.045 57.589 553.591 57.201 553.980 c
+56.812 554.368 56.266 554.595 55.716 554.595 c
+55.166 554.595 54.620 554.368 54.231 553.980 c
+53.842 553.591 53.616 553.045 53.616 552.495 c
+53.616 551.945 53.842 551.399 54.231 551.010 c
+54.620 550.621 55.166 550.395 55.716 550.395 c
+56.266 550.395 56.812 550.621 57.201 551.010 c
+57.589 551.399 57.816 551.945 57.816 552.495 c f
+BT 64.016 549.275 Td /F2 12.0 Tf  [(beneficiary_party: )] TJ ET
+BT 154.988 549.275 Td /F3 12.0 Tf  [(object)] TJ ET
+BT 198.188 549.275 Td /F2 12.0 Tf  [(, )] TJ ET
+0.000 0.000 0.800 rg
+BT 204.188 549.275 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+204.188 546.575 m 219.512 546.575 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 538.095 m 
+57.816 538.645 57.589 539.191 57.201 539.580 c
+56.812 539.968 56.266 540.195 55.716 540.195 c
+55.166 540.195 54.620 539.968 54.231 539.580 c
+53.842 539.191 53.616 538.645 53.616 538.095 c
+53.616 537.545 53.842 536.999 54.231 536.610 c
+54.620 536.221 55.166 535.995 55.716 535.995 c
+56.266 535.995 56.812 536.221 57.201 536.610 c
+57.589 536.999 57.816 537.545 57.816 538.095 c f
+BT 64.016 534.875 Td /F2 12.0 Tf  [(charges_information: )] TJ ET
+BT 169.664 534.875 Td /F3 12.0 Tf  [(object)] TJ ET
+BT 212.864 534.875 Td /F2 12.0 Tf  [(, )] TJ ET
+0.000 0.000 0.800 rg
+BT 218.864 534.875 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+218.864 532.175 m 234.188 532.175 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 523.695 m 
+57.816 524.245 57.589 524.791 57.201 525.180 c
+56.812 525.568 56.266 525.795 55.716 525.795 c
+55.166 525.795 54.620 525.568 54.231 525.180 c
+53.842 524.791 53.616 524.245 53.616 523.695 c
+53.616 523.145 53.842 522.599 54.231 522.210 c
+54.620 521.821 55.166 521.595 55.716 521.595 c
+56.266 521.595 56.812 521.821 57.201 522.210 c
+57.589 522.599 57.816 523.145 57.816 523.695 c f
+BT 64.016 520.475 Td /F2 12.0 Tf  [(currency: )] TJ ET
+BT 112.328 520.475 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 509.295 m 
+57.816 509.845 57.589 510.391 57.201 510.780 c
+56.812 511.168 56.266 511.395 55.716 511.395 c
+55.166 511.395 54.620 511.168 54.231 510.780 c
+53.842 510.391 53.616 509.845 53.616 509.295 c
+53.616 508.745 53.842 508.199 54.231 507.810 c
+54.620 507.421 55.166 507.195 55.716 507.195 c
+56.266 507.195 56.812 507.421 57.201 507.810 c
+57.589 508.199 57.816 508.745 57.816 509.295 c f
+BT 64.016 506.075 Td /F2 12.0 Tf  [(debtor_party: )] TJ ET
+BT 131.672 506.075 Td /F3 12.0 Tf  [(object)] TJ ET
+BT 174.872 506.075 Td /F2 12.0 Tf  [(, )] TJ ET
+0.000 0.000 0.800 rg
+BT 180.872 506.075 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+180.872 503.375 m 196.196 503.375 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 494.895 m 
+57.816 495.445 57.589 495.991 57.201 496.380 c
+56.812 496.768 56.266 496.995 55.716 496.995 c
+55.166 496.995 54.620 496.768 54.231 496.380 c
+53.842 495.991 53.616 495.445 53.616 494.895 c
+53.616 494.345 53.842 493.799 54.231 493.410 c
+54.620 493.021 55.166 492.795 55.716 492.795 c
+56.266 492.795 56.812 493.021 57.201 493.410 c
+57.589 493.799 57.816 494.345 57.816 494.895 c f
+BT 64.016 491.790 Td /F2 12.0 Tf  [(end_to_end_reference: )] TJ ET
+BT 176.972 491.790 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 480.639 m 
+57.816 481.189 57.589 481.735 57.201 482.124 c
+56.812 482.512 56.266 482.739 55.716 482.739 c
+55.166 482.739 54.620 482.512 54.231 482.124 c
+53.842 481.735 53.616 481.189 53.616 480.639 c
+53.616 480.089 53.842 479.543 54.231 479.154 c
+54.620 478.765 55.166 478.539 55.716 478.539 c
+56.266 478.539 56.812 478.765 57.201 479.154 c
+57.589 479.543 57.816 480.089 57.816 480.639 c f
+BT 64.016 477.534 Td /F2 12.0 Tf  [(fx: )] TJ ET
+BT 80.348 477.534 Td /F3 12.0 Tf  [(object)] TJ ET
+BT 123.548 477.534 Td /F2 12.0 Tf  [(, )] TJ ET
+0.000 0.000 0.800 rg
+BT 129.548 477.534 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+129.548 474.834 m 144.872 474.834 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 466.383 m 
+57.816 466.933 57.589 467.479 57.201 467.868 c
+56.812 468.256 56.266 468.483 55.716 468.483 c
+55.166 468.483 54.620 468.256 54.231 467.868 c
+53.842 467.479 53.616 466.933 53.616 466.383 c
+53.616 465.833 53.842 465.287 54.231 464.898 c
+54.620 464.509 55.166 464.283 55.716 464.283 c
+56.266 464.283 56.812 464.509 57.201 464.898 c
+57.589 465.287 57.816 465.833 57.816 466.383 c f
+BT 64.016 463.278 Td /F2 12.0 Tf  [(numeric_reference: )] TJ ET
+BT 160.304 463.278 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 452.127 m 
+57.816 452.677 57.589 453.223 57.201 453.612 c
+56.812 454.000 56.266 454.227 55.716 454.227 c
+55.166 454.227 54.620 454.000 54.231 453.612 c
+53.842 453.223 53.616 452.677 53.616 452.127 c
+53.616 451.577 53.842 451.031 54.231 450.642 c
+54.620 450.253 55.166 450.027 55.716 450.027 c
+56.266 450.027 56.812 450.253 57.201 450.642 c
+57.589 451.031 57.816 451.577 57.816 452.127 c f
+BT 64.016 449.022 Td /F2 12.0 Tf  [(payment_id: )] TJ ET
+BT 127.016 449.022 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 437.871 m 
+57.816 438.421 57.589 438.967 57.201 439.356 c
+56.812 439.744 56.266 439.971 55.716 439.971 c
+55.166 439.971 54.620 439.744 54.231 439.356 c
+53.842 438.967 53.616 438.421 53.616 437.871 c
+53.616 437.321 53.842 436.775 54.231 436.386 c
+54.620 435.997 55.166 435.771 55.716 435.771 c
+56.266 435.771 56.812 435.997 57.201 436.386 c
+57.589 436.775 57.816 437.321 57.816 437.871 c f
+BT 64.016 434.766 Td /F2 12.0 Tf  [(payment_purpose: )] TJ ET
+BT 155.672 434.766 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 423.615 m 
+57.816 424.165 57.589 424.711 57.201 425.100 c
+56.812 425.488 56.266 425.715 55.716 425.715 c
+55.166 425.715 54.620 425.488 54.231 425.100 c
+53.842 424.711 53.616 424.165 53.616 423.615 c
+53.616 423.065 53.842 422.519 54.231 422.130 c
+54.620 421.741 55.166 421.515 55.716 421.515 c
+56.266 421.515 56.812 421.741 57.201 422.130 c
+57.589 422.519 57.816 423.065 57.816 423.615 c f
+BT 64.016 420.510 Td /F2 12.0 Tf  [(payment_scheme: )] TJ ET
+BT 153.668 420.510 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 409.359 m 
+57.816 409.909 57.589 410.455 57.201 410.844 c
+56.812 411.232 56.266 411.459 55.716 411.459 c
+55.166 411.459 54.620 411.232 54.231 410.844 c
+53.842 410.455 53.616 409.909 53.616 409.359 c
+53.616 408.809 53.842 408.263 54.231 407.874 c
+54.620 407.485 55.166 407.259 55.716 407.259 c
+56.266 407.259 56.812 407.485 57.201 407.874 c
+57.589 408.263 57.816 408.809 57.816 409.359 c f
+BT 64.016 406.254 Td /F2 12.0 Tf  [(payment_type: )] TJ ET
+BT 138.344 406.254 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 395.103 m 
+57.816 395.653 57.589 396.199 57.201 396.588 c
+56.812 396.976 56.266 397.203 55.716 397.203 c
+55.166 397.203 54.620 396.976 54.231 396.588 c
+53.842 396.199 53.616 395.653 53.616 395.103 c
+53.616 394.553 53.842 394.007 54.231 393.618 c
+54.620 393.229 55.166 393.003 55.716 393.003 c
+56.266 393.003 56.812 393.229 57.201 393.618 c
+57.589 394.007 57.816 394.553 57.816 395.103 c f
+BT 64.016 391.998 Td /F2 12.0 Tf  [(processing_date: )] TJ ET
+BT 147.668 391.998 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 190.868 391.998 Td /F2 12.0 Tf  [(, representing a date in the format )] TJ ET
+BT 355.496 391.998 Td /F3 12.0 Tf  [(YYYY-MM-DD)] TJ ET
+57.816 380.847 m 
+57.816 381.397 57.589 381.943 57.201 382.332 c
+56.812 382.720 56.266 382.947 55.716 382.947 c
+55.166 382.947 54.620 382.720 54.231 382.332 c
+53.842 381.943 53.616 381.397 53.616 380.847 c
+53.616 380.297 53.842 379.751 54.231 379.362 c
+54.620 378.973 55.166 378.747 55.716 378.747 c
+56.266 378.747 56.812 378.973 57.201 379.362 c
+57.589 379.751 57.816 380.297 57.816 380.847 c f
+BT 64.016 377.742 Td /F2 12.0 Tf  [(reference: )] TJ ET
+BT 114.980 377.742 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 366.591 m 
+57.816 367.141 57.589 367.687 57.201 368.076 c
+56.812 368.464 56.266 368.691 55.716 368.691 c
+55.166 368.691 54.620 368.464 54.231 368.076 c
+53.842 367.687 53.616 367.141 53.616 366.591 c
+53.616 366.041 53.842 365.495 54.231 365.106 c
+54.620 364.717 55.166 364.491 55.716 364.491 c
+56.266 364.491 56.812 364.717 57.201 365.106 c
+57.589 365.495 57.816 366.041 57.816 366.591 c f
+BT 64.016 363.486 Td /F2 12.0 Tf  [(scheme_payment_sub_type: )] TJ ET
+BT 203.000 363.486 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 352.335 m 
+57.816 352.885 57.589 353.431 57.201 353.820 c
+56.812 354.208 56.266 354.435 55.716 354.435 c
+55.166 354.435 54.620 354.208 54.231 353.820 c
+53.842 353.431 53.616 352.885 53.616 352.335 c
+53.616 351.785 53.842 351.239 54.231 350.850 c
+54.620 350.461 55.166 350.235 55.716 350.235 c
+56.266 350.235 56.812 350.461 57.201 350.850 c
+57.589 351.239 57.816 351.785 57.816 352.335 c f
+BT 64.016 349.230 Td /F2 12.0 Tf  [(scheme_payment_type: )] TJ ET
+BT 180.332 349.230 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 338.079 m 
+57.816 338.629 57.589 339.175 57.201 339.564 c
+56.812 339.952 56.266 340.179 55.716 340.179 c
+55.166 340.179 54.620 339.952 54.231 339.564 c
+53.842 339.175 53.616 338.629 53.616 338.079 c
+53.616 337.529 53.842 336.983 54.231 336.594 c
+54.620 336.205 55.166 335.979 55.716 335.979 c
+56.266 335.979 56.812 336.205 57.201 336.594 c
+57.589 336.983 57.816 337.529 57.816 338.079 c f
+BT 64.016 334.974 Td /F2 12.0 Tf  [(sponsor_party: )] TJ ET
+BT 138.344 334.974 Td /F3 12.0 Tf  [(object)] TJ ET
+BT 181.544 334.974 Td /F2 12.0 Tf  [(, )] TJ ET
+0.000 0.000 0.800 rg
+BT 187.544 334.974 Td /F2 12.0 Tf  [(see)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+187.544 332.274 m 202.868 332.274 l S
+0.000 0.000 0.000 rg
+BT 34.016 304.758 Td /F1 12.0 Tf  [(Payment party)] TJ ET
+0.000 0.000 0.000 RG
+57.816 277.647 m 
+57.816 278.197 57.589 278.743 57.201 279.132 c
+56.812 279.520 56.266 279.747 55.716 279.747 c
+55.166 279.747 54.620 279.520 54.231 279.132 c
+53.842 278.743 53.616 278.197 53.616 277.647 c
+53.616 277.097 53.842 276.551 54.231 276.162 c
+54.620 275.773 55.166 275.547 55.716 275.547 c
+56.266 275.547 56.812 275.773 57.201 276.162 c
+57.589 276.551 57.816 277.097 57.816 277.647 c f
+BT 64.016 274.542 Td /F2 12.0 Tf  [(account_name: )] TJ ET
+BT 139.664 274.542 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 263.391 m 
+57.816 263.941 57.589 264.487 57.201 264.876 c
+56.812 265.264 56.266 265.491 55.716 265.491 c
+55.166 265.491 54.620 265.264 54.231 264.876 c
+53.842 264.487 53.616 263.941 53.616 263.391 c
+53.616 262.841 53.842 262.295 54.231 261.906 c
+54.620 261.517 55.166 261.291 55.716 261.291 c
+56.266 261.291 56.812 261.517 57.201 261.906 c
+57.589 262.295 57.816 262.841 57.816 263.391 c f
+BT 64.016 260.286 Td /F2 12.0 Tf  [(account_number: )] TJ ET
+BT 150.332 260.286 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 249.135 m 
+57.816 249.685 57.589 250.231 57.201 250.620 c
+56.812 251.008 56.266 251.235 55.716 251.235 c
+55.166 251.235 54.620 251.008 54.231 250.620 c
+53.842 250.231 53.616 249.685 53.616 249.135 c
+53.616 248.585 53.842 248.039 54.231 247.650 c
+54.620 247.261 55.166 247.035 55.716 247.035 c
+56.266 247.035 56.812 247.261 57.201 247.650 c
+57.589 248.039 57.816 248.585 57.816 249.135 c f
+BT 64.016 246.030 Td /F2 12.0 Tf  [(account_number_code: )] TJ ET
+BT 178.988 246.030 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 234.879 m 
+57.816 235.429 57.589 235.975 57.201 236.364 c
+56.812 236.752 56.266 236.979 55.716 236.979 c
+55.166 236.979 54.620 236.752 54.231 236.364 c
+53.842 235.975 53.616 235.429 53.616 234.879 c
+53.616 234.329 53.842 233.783 54.231 233.394 c
+54.620 233.005 55.166 232.779 55.716 232.779 c
+56.266 232.779 56.812 233.005 57.201 233.394 c
+57.589 233.783 57.816 234.329 57.816 234.879 c f
+BT 64.016 231.774 Td /F2 12.0 Tf  [(account_type: )] TJ ET
+BT 134.336 231.774 Td /F3 12.0 Tf  [(integer)] TJ ET
+57.816 220.623 m 
+57.816 221.173 57.589 221.719 57.201 222.108 c
+56.812 222.496 56.266 222.723 55.716 222.723 c
+55.166 222.723 54.620 222.496 54.231 222.108 c
+53.842 221.719 53.616 221.173 53.616 220.623 c
+53.616 220.073 53.842 219.527 54.231 219.138 c
+54.620 218.749 55.166 218.523 55.716 218.523 c
+56.266 218.523 56.812 218.749 57.201 219.138 c
+57.589 219.527 57.816 220.073 57.816 220.623 c f
+BT 64.016 217.518 Td /F2 12.0 Tf  [(address: )] TJ ET
+BT 106.340 217.518 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 206.367 m 
+57.816 206.917 57.589 207.463 57.201 207.852 c
+56.812 208.240 56.266 208.467 55.716 208.467 c
+55.166 208.467 54.620 208.240 54.231 207.852 c
+53.842 207.463 53.616 206.917 53.616 206.367 c
+53.616 205.817 53.842 205.271 54.231 204.882 c
+54.620 204.493 55.166 204.267 55.716 204.267 c
+56.266 204.267 56.812 204.493 57.201 204.882 c
+57.589 205.271 57.816 205.817 57.816 206.367 c f
+BT 64.016 203.262 Td /F2 12.0 Tf  [(bank_id: )] TJ ET
+BT 109.016 203.262 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 192.111 m 
+57.816 192.661 57.589 193.207 57.201 193.596 c
+56.812 193.984 56.266 194.211 55.716 194.211 c
+55.166 194.211 54.620 193.984 54.231 193.596 c
+53.842 193.207 53.616 192.661 53.616 192.111 c
+53.616 191.561 53.842 191.015 54.231 190.626 c
+54.620 190.237 55.166 190.011 55.716 190.011 c
+56.266 190.011 56.812 190.237 57.201 190.626 c
+57.589 191.015 57.816 191.561 57.816 192.111 c f
+BT 64.016 189.006 Td /F2 12.0 Tf  [(bank_id_code: )] TJ ET
+BT 137.672 189.006 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 177.855 m 
+57.816 178.405 57.589 178.951 57.201 179.340 c
+56.812 179.728 56.266 179.955 55.716 179.955 c
+55.166 179.955 54.620 179.728 54.231 179.340 c
+53.842 178.951 53.616 178.405 53.616 177.855 c
+53.616 177.305 53.842 176.759 54.231 176.370 c
+54.620 175.981 55.166 175.755 55.716 175.755 c
+56.266 175.755 56.812 175.981 57.201 176.370 c
+57.589 176.759 57.816 177.305 57.816 177.855 c f
+BT 64.016 174.750 Td /F2 12.0 Tf  [(name: )] TJ ET
+BT 96.344 174.750 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 34.016 144.534 Td /F1 12.0 Tf  [(Charges information)] TJ ET
+57.816 117.423 m 
+57.816 117.973 57.589 118.519 57.201 118.908 c
+56.812 119.296 56.266 119.523 55.716 119.523 c
+55.166 119.523 54.620 119.296 54.231 118.908 c
+53.842 118.519 53.616 117.973 53.616 117.423 c
+53.616 116.873 53.842 116.327 54.231 115.938 c
+54.620 115.549 55.166 115.323 55.716 115.323 c
+56.266 115.323 56.812 115.549 57.201 115.938 c
+57.589 116.327 57.816 116.873 57.816 117.423 c f
+BT 64.016 114.318 Td /F2 12.0 Tf  [(bearer_code: )] TJ ET
+BT 128.984 114.318 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 103.167 m 
+57.816 103.717 57.589 104.263 57.201 104.652 c
+56.812 105.040 56.266 105.267 55.716 105.267 c
+55.166 105.267 54.620 105.040 54.231 104.652 c
+53.842 104.263 53.616 103.717 53.616 103.167 c
+53.616 102.617 53.842 102.071 54.231 101.682 c
+54.620 101.293 55.166 101.067 55.716 101.067 c
+56.266 101.067 56.812 101.293 57.201 101.682 c
+57.589 102.071 57.816 102.617 57.816 103.167 c f
+BT 64.016 99.947 Td /F2 12.0 Tf  [(sender_charges: )] TJ ET
+BT 144.320 99.947 Td /F3 12.0 Tf  [(array)] TJ ET
+BT 180.320 99.947 Td /F2 12.0 Tf  [(, of )] TJ ET
+0.000 0.000 0.800 rg
+BT 199.316 99.947 Td /F2 12.0 Tf  [(charges)] TJ ET
+0.000 0.000 0.800 RG
+0.6 w 0 J [  ] 0 d
+199.316 97.247 m 235.964 97.247 l S
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+57.816 88.767 m 
+57.816 89.317 57.589 89.863 57.201 90.252 c
+56.812 90.640 56.266 90.867 55.716 90.867 c
+55.166 90.867 54.620 90.640 54.231 90.252 c
+53.842 89.863 53.616 89.317 53.616 88.767 c
+53.616 88.217 53.842 87.671 54.231 87.282 c
+54.620 86.893 55.166 86.667 55.716 86.667 c
+56.266 86.667 56.812 86.893 57.201 87.282 c
+57.589 87.671 57.816 88.217 57.816 88.767 c f
+BT 64.016 85.662 Td /F2 12.0 Tf  [(receiver_charges_amount: )] TJ ET
+BT 193.640 85.662 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 74.511 m 
+57.816 75.061 57.589 75.607 57.201 75.996 c
+56.812 76.384 56.266 76.611 55.716 76.611 c
+55.166 76.611 54.620 76.384 54.231 75.996 c
+53.842 75.607 53.616 75.061 53.616 74.511 c
+53.616 73.961 53.842 73.415 54.231 73.026 c
+54.620 72.637 55.166 72.411 55.716 72.411 c
+56.266 72.411 56.812 72.637 57.201 73.026 c
+57.589 73.415 57.816 73.961 57.816 74.511 c f
+BT 64.016 71.406 Td /F2 12.0 Tf  [(receiver_charges_currency: )] TJ ET
+BT 199.616 71.406 Td /F3 12.0 Tf  [(string)] TJ ET
+endstream
+endobj
+54 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 55 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 164.2157 637.2539 179.5397 649.1339 ]
+>>
+endobj
+55 0 obj
+<< /Type /Action
+>>
+endobj
+56 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 57 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 204.1877 548.1947 219.5117 560.0747 ]
+>>
+endobj
+57 0 obj
+<< /Type /Action
+>>
+endobj
+58 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 59 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 218.8637 533.7947 234.1877 545.6747 ]
+>>
+endobj
+59 0 obj
+<< /Type /Action
+>>
+endobj
+60 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 61 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 180.8717 504.9947 196.1957 516.8747 ]
+>>
+endobj
+61 0 obj
+<< /Type /Action
+>>
+endobj
+62 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 63 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 129.5477 476.4539 144.8717 488.3339 ]
+>>
+endobj
+63 0 obj
+<< /Type /Action
+>>
+endobj
+64 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 65 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 187.5437 333.8939 202.8677 345.7739 ]
+>>
+endobj
+65 0 obj
+<< /Type /Action
+>>
+endobj
+66 0 obj
+<< /Type /Annot
+/Subtype /Link
+/A 67 0 R
+/Border [0 0 0]
+/H /I
+/Rect [ 199.3157 98.8667 235.9637 110.7467 ]
+>>
+endobj
+67 0 obj
+<< /Type /Action
+>>
+endobj
+68 0 obj
+<< /Type /Page
+/Parent 3 0 R
+/Contents 69 0 R
+>>
+endobj
+69 0 obj
+<<
+/Length 3343 >>
+stream
+
+0.000 0.000 0.000 rg
+0.000 0.000 0.000 RG
+0.6 w 0 J [  ] 0 d
+BT 34.016 780.509 Td /F1 12.0 Tf  [(FX)] TJ ET
+57.816 753.398 m 
+57.816 753.948 57.589 754.494 57.201 754.883 c
+56.812 755.272 56.266 755.498 55.716 755.498 c
+55.166 755.498 54.620 755.272 54.231 754.883 c
+53.842 754.494 53.616 753.948 53.616 753.398 c
+53.616 752.848 53.842 752.302 54.231 751.913 c
+54.620 751.525 55.166 751.298 55.716 751.298 c
+56.266 751.298 56.812 751.525 57.201 751.913 c
+57.589 752.302 57.816 752.848 57.816 753.398 c f
+BT 64.016 750.293 Td /F2 12.0 Tf  [(contract_reference: )] TJ ET
+BT 159.632 750.293 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 739.142 m 
+57.816 739.692 57.589 740.238 57.201 740.627 c
+56.812 741.016 56.266 741.242 55.716 741.242 c
+55.166 741.242 54.620 741.016 54.231 740.627 c
+53.842 740.238 53.616 739.692 53.616 739.142 c
+53.616 738.592 53.842 738.046 54.231 737.657 c
+54.620 737.269 55.166 737.042 55.716 737.042 c
+56.266 737.042 56.812 737.269 57.201 737.657 c
+57.589 738.046 57.816 738.592 57.816 739.142 c f
+BT 64.016 736.037 Td /F2 12.0 Tf  [(exchange_rate: )] TJ ET
+BT 139.652 736.037 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 182.852 736.037 Td /F2 12.0 Tf  [(, probably also a big decimal)] TJ ET
+57.816 724.886 m 
+57.816 725.436 57.589 725.982 57.201 726.371 c
+56.812 726.760 56.266 726.986 55.716 726.986 c
+55.166 726.986 54.620 726.760 54.231 726.371 c
+53.842 725.982 53.616 725.436 53.616 724.886 c
+53.616 724.336 53.842 723.790 54.231 723.401 c
+54.620 723.013 55.166 722.786 55.716 722.786 c
+56.266 722.786 56.812 723.013 57.201 723.401 c
+57.589 723.790 57.816 724.336 57.816 724.886 c f
+BT 64.016 721.781 Td /F2 12.0 Tf  [(original_amount: )] TJ ET
+BT 149.684 721.781 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 192.884 721.781 Td /F2 12.0 Tf  [(, same as above)] TJ ET
+57.816 710.630 m 
+57.816 711.180 57.589 711.726 57.201 712.115 c
+56.812 712.504 56.266 712.730 55.716 712.730 c
+55.166 712.730 54.620 712.504 54.231 712.115 c
+53.842 711.726 53.616 711.180 53.616 710.630 c
+53.616 710.080 53.842 709.534 54.231 709.145 c
+54.620 708.757 55.166 708.530 55.716 708.530 c
+56.266 708.530 56.812 708.757 57.201 709.145 c
+57.589 709.534 57.816 710.080 57.816 710.630 c f
+BT 64.016 707.525 Td /F2 12.0 Tf  [(original_currency: )] TJ ET
+BT 155.660 707.525 Td /F3 12.0 Tf  [(string)] TJ ET
+BT 34.016 677.309 Td /F1 12.0 Tf  [(Charges)] TJ ET
+57.816 650.198 m 
+57.816 650.748 57.589 651.294 57.201 651.683 c
+56.812 652.072 56.266 652.298 55.716 652.298 c
+55.166 652.298 54.620 652.072 54.231 651.683 c
+53.842 651.294 53.616 650.748 53.616 650.198 c
+53.616 649.648 53.842 649.102 54.231 648.713 c
+54.620 648.325 55.166 648.098 55.716 648.098 c
+56.266 648.098 56.812 648.325 57.201 648.713 c
+57.589 649.102 57.816 649.648 57.816 650.198 c f
+BT 64.016 647.093 Td /F2 12.0 Tf  [(amount: )] TJ ET
+BT 106.352 647.093 Td /F3 12.0 Tf  [(string)] TJ ET
+57.816 635.942 m 
+57.816 636.492 57.589 637.038 57.201 637.427 c
+56.812 637.816 56.266 638.042 55.716 638.042 c
+55.166 638.042 54.620 637.816 54.231 637.427 c
+53.842 637.038 53.616 636.492 53.616 635.942 c
+53.616 635.392 53.842 634.846 54.231 634.457 c
+54.620 634.069 55.166 633.842 55.716 633.842 c
+56.266 633.842 56.812 634.069 57.201 634.457 c
+57.589 634.846 57.816 635.392 57.816 635.942 c f
+BT 64.016 632.837 Td /F2 12.0 Tf  [(currency: )] TJ ET
+BT 112.328 632.837 Td /F3 12.0 Tf  [(string)] TJ ET
+endstream
+endobj
+xref
+0 70
+0000000000 65535 f 
+0000000009 00000 n 
+0000000074 00000 n 
+0000000120 00000 n 
+0000000334 00000 n 
+0000000363 00000 n 
+0000000477 00000 n 
+0000000580 00000 n 
+0000005193 00000 n 
+0000005301 00000 n 
+0000005410 00000 n 
+0000005516 00000 n 
+0000005643 00000 n 
+0000005725 00000 n 
+0000005853 00000 n 
+0000005940 00000 n 
+0000006068 00000 n 
+0000006155 00000 n 
+0000006281 00000 n 
+0000006368 00000 n 
+0000006508 00000 n 
+0000020346 00000 n 
+0000020457 00000 n 
+0000020585 00000 n 
+0000020621 00000 n 
+0000020749 00000 n 
+0000020785 00000 n 
+0000020913 00000 n 
+0000020949 00000 n 
+0000021077 00000 n 
+0000021113 00000 n 
+0000021241 00000 n 
+0000021277 00000 n 
+0000021405 00000 n 
+0000021441 00000 n 
+0000021569 00000 n 
+0000021605 00000 n 
+0000021733 00000 n 
+0000021769 00000 n 
+0000021897 00000 n 
+0000021933 00000 n 
+0000022045 00000 n 
+0000031081 00000 n 
+0000031209 00000 n 
+0000031245 00000 n 
+0000031373 00000 n 
+0000031409 00000 n 
+0000031537 00000 n 
+0000031573 00000 n 
+0000031701 00000 n 
+0000031737 00000 n 
+0000031865 00000 n 
+0000031961 00000 n 
+0000032087 00000 n 
+0000052116 00000 n 
+0000052244 00000 n 
+0000052280 00000 n 
+0000052408 00000 n 
+0000052444 00000 n 
+0000052572 00000 n 
+0000052608 00000 n 
+0000052736 00000 n 
+0000052772 00000 n 
+0000052900 00000 n 
+0000052936 00000 n 
+0000053064 00000 n 
+0000053100 00000 n 
+0000053227 00000 n 
+0000053263 00000 n 
+0000053328 00000 n 
+trailer
+<<
+/Size 70
+/Root 1 0 R
+/Info 5 0 R
+>>
+startxref
+56724
+%%EOF
