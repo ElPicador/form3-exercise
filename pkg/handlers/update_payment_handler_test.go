@@ -14,7 +14,7 @@ func TestUpdatePaymentHandler_InvalidUUID(t *testing.T) {
 	handler, _, after := api.CreateTestingHandler(t)
 	defer after()
 
-	req, err := http.NewRequest("PUT", "/1/payments/uuid", nil)
+	req, err := http.NewRequest("PUT", "/1/payments/uuid", strings.NewReader(`{}`))
 	require.NoError(t, err)
 
 	rr := httptest.NewRecorder()

@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"github.com/ElPicador/form3-exercise/pkg/payments"
 	"log"
 	"net/http"
@@ -24,17 +23,8 @@ func NewCreatePaymentHandler(repository *payments.Repository, generator payments
 }
 
 func (h *CreatePaymentHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Body == nil {
-		WriteJSONMessage(w, http.StatusBadRequest, "body of request must be a json object")
-		return
-	}
-
-	decoder := json.NewDecoder(r.Body)
-	var requestBody payments.Payment
-	err := decoder.Decode(&requestBody)
-
+	requestBody, err := ValidateAndGetPaymentFromBody(w, r)
 	if err != nil {
-		WriteJSONMessage(w, http.StatusBadRequest, "invalid json")
 		return
 	}
 
@@ -46,7 +36,7 @@ func (h *CreatePaymentHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)
 	}
 
 	requestBody.ID = id.String()
-	err = h.repository.Save(id.String(), &requestBody)
+	err = h.repository.Save(id.String(), requestBody)
 	if err != nil {
 		log.Printf("[ERROR] cannot save payment: %s\n", err)
 		Write500(w)
