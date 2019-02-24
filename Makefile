@@ -10,6 +10,6 @@ doc:
 dep:
 	dep ensure
 
-.PHONY: dep
-test:
+.PHONY: test
+test: dep
 	go test ./...
