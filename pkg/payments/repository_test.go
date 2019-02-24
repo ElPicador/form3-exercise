@@ -41,3 +41,20 @@ func TestGet(t *testing.T) {
 	require.NoError(t, err)
 	require.EqualValues(t, payment, *actual)
 }
+
+func TestDelete(t *testing.T) {
+	repo, after := payments.RepositoryForTests(t)
+	defer after()
+
+	id := "my-id"
+
+	err := repo.Delete(id)
+	require.Error(t, err)
+
+	payment := payments.Payment{ID: id}
+	err = repo.Save(id, &payment)
+	require.NoError(t, err)
+
+	err = repo.Delete(id)
+	require.NoError(t, err)
+}

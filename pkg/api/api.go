@@ -32,6 +32,10 @@ func (a *API) Handler() *mux.Router {
 		Path("/1/payments/{uuid}").
 		Methods(http.MethodGet).
 		Handler(handlers.NewGetPaymentHandler(a.repository))
+	r.
+		Path("/1/payments/{uuid}").
+		Methods(http.MethodDelete).
+		Handler(handlers.NewDeletePaymentHandler(a.repository))
 
 	return r
 }

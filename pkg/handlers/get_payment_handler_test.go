@@ -37,7 +37,7 @@ func TestGetPaymentHandler_404(t *testing.T) {
 	require.Equal(t, `{"code":404,"message":"payment doesnt exist"}`, rr.Body.String())
 }
 
-func TestCreatePaymentHandler_OK(t *testing.T) {
+func TestGetPaymentHandler_OK(t *testing.T) {
 	handler, repo, after := api.CreateTestingHandler(t)
 	defer after()
 

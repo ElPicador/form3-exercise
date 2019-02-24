@@ -90,6 +90,24 @@ func (r *Repository) Get(id string) (*Payment, error) {
 	return &payment, nil
 }
 
+func (r *Repository) Delete(id string) error {
+	exist, err := r.Exists(id)
+	if err != nil {
+		return errors.Wrapf(err, "cannot delete payment id %q", id)
+	}
+	if !exist {
+		return errors.Errorf("cannot delete payment id %q", id)
+	}
+
+	path := r.filePath(id)
+	err = os.Remove(path)
+	if err != nil {
+		return errors.Wrap(err, "cannot delete file")
+	}
+
+	return nil
+}
+
 func (r *Repository) filePath(id string) string {
 	return filepath.Join(r.rootPath, id)
 }
