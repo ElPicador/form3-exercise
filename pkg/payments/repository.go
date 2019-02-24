@@ -39,7 +39,7 @@ func (r *Repository) Save(id string, payment *Payment) error {
 		return errors.Wrap(err, "cannot json serialize")
 	}
 
-	// open file in read-write and creates it if needeed
+	// open file in read-write and creates it if needed
 	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE, 0600)
 	defer f.Close()
 	if err != nil {

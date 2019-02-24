@@ -7,10 +7,6 @@ import (
 	"net/http"
 )
 
-type createPaymentRequest struct {
-	Payment payments.Payment `json:"payment"`
-}
-
 type createPaymentResponse struct {
 	PaymentID string `json:"payment_id"`
 }
@@ -34,7 +30,7 @@ func (h *CreatePaymentHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)
 	}
 
 	decoder := json.NewDecoder(r.Body)
-	var requestBody createPaymentRequest
+	var requestBody payments.Payment
 	err := decoder.Decode(&requestBody)
 
 	if err != nil {
@@ -49,8 +45,8 @@ func (h *CreatePaymentHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	requestBody.Payment.ID = id.String()
-	err = h.repository.Save(id.String(), &requestBody.Payment)
+	requestBody.ID = id.String()
+	err = h.repository.Save(id.String(), &requestBody)
 	if err != nil {
 		log.Printf("[ERROR] cannot save payment: %s\n", err)
 		Write500(w)
