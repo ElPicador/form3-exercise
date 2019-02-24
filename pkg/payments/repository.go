@@ -108,6 +108,24 @@ func (r *Repository) Delete(id string) error {
 	return nil
 }
 
+func (r *Repository) GetAll() ([]*Payment, error) {
+	files, err := ioutil.ReadDir(r.rootPath)
+	if err != nil {
+		return nil, errors.Wrap(err, "cannot list directory")
+	}
+
+	result := []*Payment{}
+	for _, file := range files {
+		payment, err := r.Get(file.Name())
+		if err != nil {
+			return nil, errors.Wrap(err, "cannot get one payment")
+		}
+		result = append(result, payment)
+	}
+
+	return result, nil
+}
+
 func (r *Repository) filePath(id string) string {
 	return filepath.Join(r.rootPath, id)
 }

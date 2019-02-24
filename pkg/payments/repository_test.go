@@ -58,3 +58,35 @@ func TestDelete(t *testing.T) {
 	err = repo.Delete(id)
 	require.NoError(t, err)
 }
+
+func TestGetAll_EmptyResult(t *testing.T) {
+	repo, after := payments.RepositoryForTests(t)
+	defer after()
+
+	actual, err := repo.GetAll()
+	require.NoError(t, err)
+	require.Empty(t, actual)
+}
+
+func TestGetAll_2Results(t *testing.T) {
+	repo, after := payments.RepositoryForTests(t)
+	defer after()
+
+	id1 := "my-id-1"
+	id2 := "my-id-2"
+
+	payment1 := payments.Payment{ID: id1}
+	err := repo.Save(id1, &payment1)
+	require.NoError(t, err)
+
+	payment2 := payments.Payment{ID: id2}
+	err = repo.Save(id2, &payment2)
+	require.NoError(t, err)
+
+	expected := []*payments.Payment{&payment1, &payment2}
+
+	actual, err := repo.GetAll()
+	require.NoError(t, err)
+	require.Subset(t, expected, actual)
+	require.Subset(t, actual, expected)
+}

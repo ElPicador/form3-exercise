@@ -26,6 +26,10 @@ func (a *API) Handler() *mux.Router {
 		HandlerFunc(handlers.PingHandler)
 	r.
 		Path("/1/payments").
+		Methods(http.MethodGet).
+		Handler(handlers.NewListPaymentsHandler(a.repository))
+	r.
+		Path("/1/payments").
 		Methods(http.MethodPost).
 		Handler(handlers.NewCreatePaymentHandler(a.repository, a.generator))
 	r.
