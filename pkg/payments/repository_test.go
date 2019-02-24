@@ -1,7 +1,7 @@
 package payments_test
 
 import (
-	"github.com/ElPicador/form3-exercise/payments"
+	"github.com/ElPicador/form3-exercise/pkg/payments"
 	"github.com/stretchr/testify/require"
 	"testing"
 )

@@ -1,8 +1,8 @@
 package handlers_test
 
 import (
-	"github.com/ElPicador/form3-exercise/handlers"
-	"github.com/ElPicador/form3-exercise/payments"
+	"github.com/ElPicador/form3-exercise/pkg/handlers"
+	"github.com/ElPicador/form3-exercise/pkg/payments"
 	"github.com/gorilla/mux"
 	"github.com/stretchr/testify/require"
 	"net/http"

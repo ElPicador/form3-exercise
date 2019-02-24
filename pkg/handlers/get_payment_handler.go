@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/ElPicador/form3-exercise/payments"
+	"github.com/ElPicador/form3-exercise/pkg/payments"
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"log"

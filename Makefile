@@ -1,6 +1,6 @@
 .PHONY: run
 run: dep
-	go run main.go
+	go run cmd/api/main.go
 
 .PHONY: doc
 doc:

@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/ElPicador/form3-exercise/payments"
+	"github.com/ElPicador/form3-exercise/pkg/payments"
 	"log"
 	"net/http"
 )

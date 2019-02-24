@@ -2,7 +2,7 @@ package handlers_test
 
 import (
 	"encoding/json"
-	"github.com/ElPicador/form3-exercise/handlers"
+	"github.com/ElPicador/form3-exercise/pkg/handlers"
 	"github.com/stretchr/testify/require"
 	"net/http"
 	"net/http/httptest"
